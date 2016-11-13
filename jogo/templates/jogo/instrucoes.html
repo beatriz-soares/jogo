@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    .container {
+	margin-top:5%;
+	background-color: white;
+	box-shadow: 10px 10px 5px grey;
+	padding-bottom: 20px;
+	text-align: justify;
+}
+  body{
+    background-color: #CCCCCC;
+}
+  #exemplo{
+    width: 70%;
+    margin-left: 60px;
+}
+   #head{
+    padding: 10px;
+    font-size: 200%;
+}
+    p, li{
+    text-indent: 30px;
+    font-size: 130%;
+}
+    .jogar{
+        margin-top: 30px;
+        width: 80%;
+    }
+    .voltar{
+        width: 70%;
+        margin-left: 10px;
+        margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+ <div class = "container">
+	<div class="row">
+            <p id="head" class="bg-primary">Instruções</p>
+        <div class="col-md-5">
+            <p class="bg-success">Como jogar?</p>
+            <p>O objetivo deste jogo consiste em deslocar todos os discos da haste onde se encontram para uma haste diferente, respeitando as seguintes regras:</p>
+            <ul>
+                <li>Deslocar um disco de cada vez, o qual deverá ser o do topo de uma das três hastes;</li>
+                <li>Cada disco nunca poderá ser colocado sobre outro de diâmetro menor. </li>
+            </ul>
+            <img id='exemplo' src="https://www.ime.usp.br/lem/ens-mat/hanoi.gif" alt="">
+        </div>
+        <div class="col-md-5">
+            <p class="bg-danger">Origem</p>
+            <p>Existem várias lendas a respeito da origem do jogo, a mais conhecida diz respeito a um templo Hindu, situado no centro do universo. Diz-se que Brama supostamente havia criado uma torre com 64 discos de ouro e mais duas estacas equilibradas sobre uma plataforma. Brama ordenara-lhes que movessem todos os discos de uma estaca para outra segundo as suas instruções. As regras eram simples: apenas um disco poderia ser movido por vez e nunca um disco maior deveria ficar por cima de um disco menor. Segundo a lenda, quando todos os discos fossem transferidos de uma estaca para a outra, o templo iria desmoronar e o mundo desapareceria.</p>
+        </div>
+        <div class="col-md-2">
+            <p class="bg-info">Vamos lá?</p>
+            <img src="http://toginet.com/showimages/homepage/play_button.png" class="img-circle btn jogar">
+            <img src="https://jira.transvar.org/secure/attachment/12883/home_icon_grey_128x128_more_space.png" class="voltar img-circle btn" alt="">
+        </div>
+
+	</div>
+</div>
+
+
+</body>
+</html>
