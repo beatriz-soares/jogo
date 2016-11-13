@@ -1,0 +1,31 @@
+.container {
+margin-top:5%;
+background-color: white;
+box-shadow: 10px 10px 5px grey;
+padding-bottom: 20px;
+text-align: justify;
+}
+body{
+background-color: #CCCCCC;
+}
+#exemplo{
+width: 70%;
+margin-left: 60px;
+}
+#head{
+padding: 10px;
+font-size: 200%;
+}
+p, li{
+text-indent: 30px;
+font-size: 130%;
+}
+.jogar{
+    margin-top: 30px;
+    width: 80%;
+}
+.voltar{
+    width: 70%;
+    margin-left: 10px;
+    margin-top: 40px;
+}
