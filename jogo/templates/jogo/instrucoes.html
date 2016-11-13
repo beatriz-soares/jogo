@@ -1,45 +1,14 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>Torre de Hanoi - Instruções</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style type="text/css">
-    .container {
-	margin-top:5%;
-	background-color: white;
-	box-shadow: 10px 10px 5px grey;
-	padding-bottom: 20px;
-	text-align: justify;
-}
-  body{
-    background-color: #CCCCCC;
-}
-  #exemplo{
-    width: 70%;
-    margin-left: 60px;
-}
-   #head{
-    padding: 10px;
-    font-size: 200%;
-}
-    p, li{
-    text-indent: 30px;
-    font-size: 130%;
-}
-    .jogar{
-        margin-top: 30px;
-        width: 80%;
-    }
-    .voltar{
-        width: 70%;
-        margin-left: 10px;
-        margin-top: 40px;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+  <script src="{% static "css/jquery.min.js" %}"></script>
+  <script src="{% static "css/bootstrap.min.js" %}"></script>
+  <link rel="stylesheet" href="{% static "css/instrucoes.css" %}">
 </head>
 <body>
 
@@ -53,7 +22,7 @@
                 <li>Deslocar um disco de cada vez, o qual deverá ser o do topo de uma das três hastes;</li>
                 <li>Cada disco nunca poderá ser colocado sobre outro de diâmetro menor. </li>
             </ul>
-            <img id='exemplo' src="https://www.ime.usp.br/lem/ens-mat/hanoi.gif" alt="">
+            <img id='exemplo' src="{% static 'images/hanoi.gif' %}" alt="">
         </div>
         <div class="col-md-5">
             <p class="bg-danger">Origem</p>
@@ -62,10 +31,10 @@
         <div class="col-md-2">
             <p class="bg-info">Vamos lá?</p>
             <a href="{% url 'jogo' %}">
-                <img src="http://toginet.com/showimages/homepage/play_button.png" class="img-circle btn jogar">
+                <img src="{% static 'images/play_button.png' %}" class="img-circle btn jogar">
             </a>
             <a href="{% url 'index' %}">
-                <img src="https://jira.transvar.org/secure/attachment/12883/home_icon_grey_128x128_more_space.png" class="voltar img-circle btn" alt="">
+                <img src="{% static 'images/home_icon.png' %}" class="voltar img-circle btn" alt="">
             </a>
         </div>
 	</div>
