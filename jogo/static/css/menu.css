@@ -1,0 +1,15 @@
+.wrapper {
+margin-top:10%;
+margin-bottom:15%;
+margin-left:30%;
+margin-right:30%;
+background-color: white;
+padding: 30px;
+box-shadow: 10px 10px 5px grey;
+}
+body{
+background-color: #CCCCCC;
+}
+img{
+width: 97%;
+}
