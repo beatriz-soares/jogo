@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bootstrap Example</title>
+  <title>Torre de Hanoi - Instruções</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -61,10 +61,13 @@
         </div>
         <div class="col-md-2">
             <p class="bg-info">Vamos lá?</p>
-            <img src="http://toginet.com/showimages/homepage/play_button.png" class="img-circle btn jogar">
-            <img src="https://jira.transvar.org/secure/attachment/12883/home_icon_grey_128x128_more_space.png" class="voltar img-circle btn" alt="">
+            <a href="{% url 'jogo' %}">
+                <img src="http://toginet.com/showimages/homepage/play_button.png" class="img-circle btn jogar">
+            </a>
+            <a href="{% url 'index' %}">
+                <img src="https://jira.transvar.org/secure/attachment/12883/home_icon_grey_128x128_more_space.png" class="voltar img-circle btn" alt="">
+            </a>
         </div>
-
 	</div>
 </div>
 

@@ -9,4 +9,9 @@ def index(request):
 def instrucoes(request):
     return render(request, "jogo/instrucoes.html")
 
+def jogo(request):
+    return render(request, "jogo/jogo.html")
+
+
+
 

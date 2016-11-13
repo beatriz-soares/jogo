@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bootstrap Example</title>
+  <title>Torre de Hanoi - Menu</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -32,7 +32,7 @@
 	<div class="wrapper">
           <img class="form-signin-heading" src="https://s14.postimg.org/42vzm5eg1/logo.png"/>
           <hr><br>
-          <button class="btn btn-lg btn-primary btn-block" type="button">VAMOS JOGAR</button>
+          <a href="{% url 'jogo' %}" class="btn btn-lg btn-primary btn-block" type="button">VAMOS JOGAR</a>
           <a href="{% url 'instrucoes' %}" class="btn btn-lg btn-warning btn-block" type="button">INSTRUÇÕES</a>
           <button class="btn btn-lg btn-danger btn-block" type="button">SAIR</button>
 
