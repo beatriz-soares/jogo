@@ -1,26 +1,41 @@
+/*Aqui tem o CSS da página de instruções*/
+
+/*Esse primeiro é o estilo da div de classe wrapper;
+ Modificamos a margem na parte superior, e optamos por usar porcentagem para que seja relativo ao tamanho da tela do usuário.
+ Em seguida mudamos a cor do plano de fundo, colocamos um sombreado, aumentamos o espaço entre a borda e o conteúdo
+ da div usando o padding */
 .wrapper {
-margin-top:10%;
-margin-bottom:15%;
-margin-left:30%;
-margin-right:30%;
-background-color: white;
-padding: 30px;
-box-shadow: 10px 10px 5px grey;
+    margin-top:10%;
+    margin-bottom:15%;
+    margin-left:30%;
+    margin-right:30%;
+    background-color: white;
+    padding: 30px;
+    box-shadow: 10px 10px 5px grey;
 }
+
+/* Aqui colocamos o plano de fundo de toda a página como cinza, e usamos o !important para que essa cor prevaleça sobre
+a cor padrão que o bootstrap insere em páginas de modal, que é o branco*/
 body{
-background-color: #CCCCCC !important;
+    background-color: #CCCCCC !important;
 }
+
+/*Mudamos o tamanho e a margem da imagem do logo */
 img{
-width: 97%;
+    width: 97%;
 }
+
+/*Tamanho, margens e fonte dos botões de escolher o nível, que estão dentro do modal que é chamado quando
+clica em jogar */
 .nivel{
     margin-top: 20px;
     width: 100%;
 }
 .dificuldade{
     font-size: 200%;
-
 }
+
+/*Mudando o tamanho dos botões do menu, que tem classe picks*/
 .picks{
     height: 10%;
-    }
+}

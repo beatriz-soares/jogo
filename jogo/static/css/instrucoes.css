@@ -1,3 +1,9 @@
+/*Aqui tem o CSS da página de instruções*/
+
+/*Esse primeiro é o estilo da div de classe container;
+ Modificamos a margem na parte superior, e optamos por usar porcentagem para que seja 5% relativo ao tamanho da tela do usuário.
+ Em seguida mudamos a cor do plano de fundo, colocamos um sombreado, aumentamos o espaço entre a borda inferior e o conteúdo
+ da div usando o padding, e justificamos o texto. */
 .container {
 margin-top:5%;
 background-color: white;
@@ -5,17 +11,26 @@ box-shadow: 10px 10px 5px grey;
 padding-bottom: 20px;
 text-align: justify;
 }
+
+/* Aqui colocamos o plano de fundo de toda a página como cinza, e usamos o !important para que essa cor prevaleça sobre
+a cor padrão que o bootstrap insere em páginas de modal, que é o branco*/
 body{
 background-color: #CCCCCC !important ;
 }
+
+/*Mudamos o tamanho e a margem da imagem que exemplifica o jogo nas intruções e tem o id=exemplo */
 #exemplo{
 width: 70%;
 margin-left: 60px;
 }
+
 #head{
 padding: 10px;
 font-size: 200%;
 }
+
+/*Mudamos o tamanho da fonte dos textos, que estão dentro ou de parágrafos ou de listas.
+Esse text-ident é para adicionar o recuo da primeira liha do parágrafo.*/
 p, li{
 text-indent: 30px;
 font-size: 130%;
@@ -24,19 +39,28 @@ font-size: 130%;
     margin-top: 30px;
     width: 80%;
 }
+
+/*Tamanho e margens do botão de classe voltar*/
 .voltar{
     width: 70%;
     margin-left: 10px;
     margin-top: 40px;
 }
+
+/*Tamanho, margens e fonte dos botões de escolher o nível, que estão dentro do modal que é chamado quando
+clica em jogar */
 .nivel{
     margin-top: 20px;
     width: 100%;
 }
+
 .dificuldade{
     font-size: 200%;
 
 }
+
+/*Mudando o tamanho do icone de jogar e de home, e usando important de novo para conseguir sobrescrever o tamanho
+padrão do bootstrap */
 .glyphicon {
     font-size: 500% !important;
 }

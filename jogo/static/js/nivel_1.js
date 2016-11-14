@@ -1,24 +1,25 @@
  var horizontal= -6;
         var vertical = 0;
         window.addEventListener('DOMContentLoaded', function(){
-            // get the canvas DOM element
+            // pegando o elemento CANVAS
             var canvas = document.getElementById('renderCanvas');
 
-            // load the 3D engine
+            // carregando a engine 3D que importamos do BABYLON
             var engine = new BABYLON.Engine(canvas, true);
 
-            // createScene function that creates and return the scene
+            // função createScene que constrói a cena
             var createScene = function(){
-                // create a basic BJS Scene object
+                // criando o objeto-base de cena
                 var scene = new BABYLON.Scene(engine);
 
-                // create a FreeCamera, and set its position to (x:0, y:5, z:-10)
+                // criando a FreeCamera, e setando sua posição para (x:0, y:5, z:-10) é ela que vai dar
+                // a perspectiva de onde estaremos olhando os elementos
                 var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5,-10), scene);
 
-                // target the camera to scene origin
+                // direcionando o camera para a origem da cena
                 camera.setTarget(BABYLON.Vector3.Zero());
 
-                // create a basic light, aiming 0,1,0 - meaning, to the sky
+                // criando a iluminação, direcionada para 0,1,0 - que é pra cima
                 var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), scene);
 
                 // criando os elementos
@@ -29,9 +30,11 @@
                 var cylinder2 = BABYLON.Mesh.CreateCylinder("cylinder2", 4, 0.3, 0.3, 6, 1, scene);
                 var cylinder3 = BABYLON.Mesh.CreateCylinder("cylinder3", 4, 0.3, 0.3, 6, 1, scene);
 
-
+                // isso é para mudar a cor, e também podemos usar imagems para ser a textura usando o diffuseTexture
                 var materialtorus = new BABYLON.StandardMaterial("texture1", scene);
+                torus.material = materialtorus;
                 torus2.material = materialtorus;
+                torus3.material = materialtorus;
                 materialtorus.diffuseColor = new BABYLON.Color3(1.0, 0.2, 0.7);
 
                 // posição dos elementos no eixo Y
@@ -50,10 +53,12 @@
                 cylinder2.position.x = 0;
                 cylinder3.position.x = 6;
 
-                // return the created scene
+                // retorna a cena que criamos
                 return scene;
             }
             var scene = createScene();
+
+            //criando um evento para mudar a posição do toro quando o botão de id=muda for clicado
             $("#muda").click(function(){
 
                 if (vertical > -1){
@@ -66,8 +71,7 @@
 
                });
 
-
-            // run the render loop
+            // renderiza o loop para a cena aparecer
             engine.runRenderLoop(function(){
                 scene.render();
             });
