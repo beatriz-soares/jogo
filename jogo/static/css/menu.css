@@ -8,8 +8,19 @@ padding: 30px;
 box-shadow: 10px 10px 5px grey;
 }
 body{
-background-color: #CCCCCC;
+background-color: #CCCCCC !important;
 }
 img{
 width: 97%;
 }
+.nivel{
+    margin-top: 20px;
+    width: 100%;
+}
+.dificuldade{
+    font-size: 200%;
+
+}
+.picks{
+    height: 10%;
+    }

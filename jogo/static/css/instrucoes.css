@@ -6,7 +6,7 @@ padding-bottom: 20px;
 text-align: justify;
 }
 body{
-background-color: #CCCCCC;
+background-color: #CCCCCC !important ;
 }
 #exemplo{
 width: 70%;
@@ -28,4 +28,15 @@ font-size: 130%;
     width: 70%;
     margin-left: 10px;
     margin-top: 40px;
+}
+.nivel{
+    margin-top: 20px;
+    width: 100%;
+}
+.dificuldade{
+    font-size: 200%;
+
+}
+.glyphicon {
+    font-size: 500% !important;
 }

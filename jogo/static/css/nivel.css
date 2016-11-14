@@ -1,0 +1,19 @@
+.container {
+margin-top:5%;
+width: 40%;
+background-color: white;
+box-shadow: 10px 10px 5px grey;
+padding-bottom: 20px;
+text-align: justify;
+}
+body{
+background-color: #CCCCCC;
+}
+#head{
+padding: 10px;
+font-size: 200%;
+}
+p{
+text-indent: 30px;
+font-size: 130%;
+}

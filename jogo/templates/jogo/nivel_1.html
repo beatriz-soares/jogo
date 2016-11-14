@@ -1,0 +1,31 @@
+{% load staticfiles %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+    <title>Babylon - Getting Started</title>
+    <!--- link to the last version of babylon --->
+    <script src="http://cdn.babylonjs.com/2-4/babylon.js"></script>
+    <style>
+        html, body {
+            overflow: hidden;
+            width   : 100%;
+            height  : 100%;
+            margin  : 0;
+            padding : 0;
+        }
+
+        #renderCanvas {
+            width   : 100%;
+            height  : 100%;
+            touch-action: none;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<button id="muda">muda</button>
+<canvas id="renderCanvas"></canvas>
+<script src="{% static 'js/nivel_1.js' %}"></script>
+</body>
+</html>
