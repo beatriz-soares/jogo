@@ -1,7 +1,4 @@
 // Observação: as funções são declaradas nas últimas linhas!
-var horizontal= -6;
-var vertical = 0;
-
 var matriz_pos = [
     // Matriz de posição dos toros. Cada número diz respeito a um toro.
   [1, 2, 3], //Poste 1
