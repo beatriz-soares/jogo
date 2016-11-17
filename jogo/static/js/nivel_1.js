@@ -1,5 +1,4 @@
 /*SEÇÃO: DECLARAÇÃO DE VARIÁVEIS IMPORTANTES*/
-
 var matriz_pos = [
     // Matriz de posição dos toros. Cada número diz respeito a um toro.
   [0,0,0,0,1,2,3], //Poste 1
@@ -157,7 +156,7 @@ function createScene(){
 
     // criando a FreeCamera, e setando sua posição para (x:0, y:5, z:-10) é ela que vai dar
     // a perspectiva de onde estaremos olhando os elementos
-    var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5,-10), scene);
+    var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5,-15), scene);
 
     // direcionando o camera para a origem da cena
     camera.setTarget(BABYLON.Vector3.Zero());
@@ -166,9 +165,15 @@ function createScene(){
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,-0.5), scene);
 
     // criando os elementos
-    var torus = BABYLON.Mesh.CreateTorus("torus", 1, 1, 10, scene);
-    var torus2 = BABYLON.Mesh.CreateTorus("torus2", 2, 1, 10, scene);
-    var torus3 = BABYLON.Mesh.CreateTorus("torus3", 3, 1, 10, scene);
+    var torus = BABYLON.Mesh.CreateTorus("torus", 0.5, 1, 10, scene);
+    var torus2 = BABYLON.Mesh.CreateTorus("torus2", 1, 1, 10, scene);
+    var torus3 = BABYLON.Mesh.CreateTorus("torus3", 3.5, 1, 10, scene);
+    for (i = 1; i <= qtd; i++){
+        torus_atual = 'torus' + i;
+        tamanho = i / 2;
+        eval (`var ${torus_atual} = ${tamanho}`)//por fazer!
+
+    }
     var cylinder = BABYLON.Mesh.CreateCylinder("cylinder", 4, 0.3, 0.3, 6, 1, scene);
     var cylinder2 = BABYLON.Mesh.CreateCylinder("cylinder2", 4, 0.3, 0.3, 6, 1, scene);
     var cylinder3 = BABYLON.Mesh.CreateCylinder("cylinder3", 4, 0.3, 0.3, 6, 1, scene);
