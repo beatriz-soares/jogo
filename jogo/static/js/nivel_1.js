@@ -1,9 +1,9 @@
 // Observação: as funções são declaradas nas últimas linhas!
 var matriz_pos = [
     // Matriz de posição dos toros. Cada número diz respeito a um toro.
-  [1, 2, 3], //Poste 1
-  [0, 0, 0], //Poste 2
-  [0, 0, 0]  //Poste 3
+  [0,0,0,0,1, 2, 3], //Poste 1
+  [0,0,0,0,0, 0, 0], //Poste 2
+  [0,0,0,0,0, 0, 0]  //Poste 3
 ];
 
 var rc = {toro1:{x:-6,y:  0 },//Variável que abriga as coordenadas (x,y)dos toros.
@@ -16,8 +16,16 @@ coordenada cartesiana. Por exemplo: se eu estou no segundo poste e o toro mais
 em cima, então as minhas coordenadas são x[1](ou seja, poste 2) e y[0](ou seja,
 na primeira posição da matriz_pos de cima pra baixo!)
 */
-var coordenadas_possiveis = {x:{0:-6, 1:0   , 2:6},
-                             y:{0:0 , 1:-0.7,2:-1.2}
+var coordenadas_possiveis = {x:{0:-6,
+                                1:0,
+                                2:6},
+                             y:{0:2.8,
+                                1:2.1,
+                                2:1.4,
+                                3:0.7,
+                                4:0,
+                                5:-0.7,
+                                6:-1.2}
                          }
 
 window.addEventListener('DOMContentLoaded', function(){
@@ -83,6 +91,8 @@ window.addEventListener('DOMContentLoaded', function(){
         de = $("#de_field").val() - 1
         para = $("#para_field").val() - 1
         movimentar_toro(de,para);
+        logar_matriz_pos();
+        estado_invalido();
         atualizar_coordenadas();
         scene = createScene();
        });
@@ -104,29 +114,25 @@ function movimentar_toro(poste_origem, poste_destino) {
     */
     meu_toro = 0;
     //1º: encontrar o toro
-    for (i = 0; i < 3; i++){
+    for (i = 0; i < 7; i++){
         if (matriz_pos[poste_origem][i] != 0){
             meu_toro = matriz_pos[poste_origem][i];
             matriz_pos[poste_origem][i] = 0;
             break;
         }
-        if (i == 2){
+        if (i == 6){
             console.log("Aviso: toro não encontrado. O poste está vazio.");
-        }
-    }
+        }}
     //2º: sua posição final
     if (meu_toro != 0){
-        for (i = 0; i < 3; i++){
+        for (i = 0; i < 7; i++){
             if (matriz_pos[poste_destino][i] != 0){
                 matriz_pos[poste_destino][i-1] = meu_toro;
                 break;
             }
-            if (i == 2){
-                matriz_pos[poste_destino][2] = meu_toro;
-            }
-        }
-    }
-
+            if (i == 6){
+                matriz_pos[poste_destino][i] = meu_toro;
+            }}}
 }
 
 function atualizar_coordenadas(){
@@ -135,29 +141,48 @@ function atualizar_coordenadas(){
     */
     //Encontrar e atualizar para o toro 1:
     for (poste = 0; poste < 3; poste++){
-        for (altura = 0; altura < 3; altura++){
+        for (altura = 0; altura < 7; altura++){
             if (matriz_pos[poste][altura] == 1){
                 rc.toro1.x = coordenadas_possiveis.x[poste]
                 rc.toro1.y = coordenadas_possiveis.y[altura]
-            }
-        }
-    }
+            }}}
     //Encontrar e atualizar para o toro 2:
     for (poste = 0; poste < 3; poste++){
-        for (altura = 0; altura < 3; altura++){
+        for (altura = 0; altura < 7; altura++){
             if (matriz_pos[poste][altura] == 2){
                 rc.toro2.x = coordenadas_possiveis.x[poste]
                 rc.toro2.y = coordenadas_possiveis.y[altura]
-            }
-        }
-    }
+            }}}
     //Encontrar e atualizar para o toro 3:
     for (poste = 0; poste < 3; poste++){
-        for (altura = 0; altura < 3; altura++){
+        for (altura = 0; altura < 7; altura++){
             if (matriz_pos[poste][altura] == 3){
                 rc.toro3.x = coordenadas_possiveis.x[poste]
                 rc.toro3.y = coordenadas_possiveis.y[altura]
-            }
+            }}}
+}
+
+function logar_matriz_pos(){
+    /*Printa no console a variável matriz_pos para fins de debug
+    */
+    console.log('matriz_pos:')
+    for (nivel = 0; nivel < 7; nivel++){
+        linha = ''
+        for (poste = 0; poste < 3; poste++){
+            linha += ' ' + matriz_pos[poste][nivel].toString();
         }
+        console.log(linha)
     }
+}
+
+function estado_invalido(){
+    /*Retorna valor booleano verdadeiro se o estado atual do jogo for inválido, isto é,
+    se houver uma peça qualquer em cima de outra menor.
+    */
+    for (poste = 0; poste < 3; poste++){
+        for (nivel = 1; nivel < 7; nivel++){
+            if (matriz_pos[poste][nivel] < matriz_pos[poste][nivel-1]){
+                console.log('Jogada invalida realizada.')
+                return false;
+            }}}
 }
