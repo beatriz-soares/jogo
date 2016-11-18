@@ -60,10 +60,8 @@ window.addEventListener('DOMContentLoaded', function(){
     $("#muda").click(function(){
         de = $("#de_field").val() - 1
         para = $("#para_field").val() - 1
-        logar_matriz_pos();
         movimentar_toro(de,para);
-        logar_matriz_pos();
-        estado_invalido();
+        estado_atual();
         atualizar_coordenadas();
         scene = createScene();
        });
@@ -130,16 +128,27 @@ function logar_matriz_pos(){
     }
 }
 
-function estado_invalido(){
-    /*Retorna valor booleano verdadeiro se o estado atual do jogo for inválido, isto é,
-    se houver uma peça qualquer em cima de outra menor.
+function estado_atual(){
+    /*Avalia a situação atual. Retorna:
+    1 : Objetivo concluído (vitória)
+    0 : Jogo em curso normal
+    -1: Jogada inválida realizada
     */
+    //Testa -1:
     for (poste = 0; poste < 3; poste++){
         for (nivel = 1; nivel < 7; nivel++){
             if (matriz_pos[poste][nivel] < matriz_pos[poste][nivel-1]){
                 console.log('Jogada invalida realizada.')
-                return false;
+                return -1;
             }}}
+
+    //Testa 1:
+    if (matriz_pos[1][7-qtd] != 0 || matriz_pos[2][7-qtd] != 0){
+        console.log('Fim de jogo!')
+        return 1;
+    }
+
+    return 0;
 }
 
 function createScene(){
