@@ -13,10 +13,11 @@ def instrucoes(request):
 # A função jogo retorna htmls diferentes dependendo do nível que o usuário escolheu
 def jogo(request, id):
     if id == '1':
-        return render(request, "jogo/nivel_1.html")
+        qtd = 3
     elif id == '2':
-        return render(request, "jogo/nivel_2.html")
+        qtd = 5
     elif id == '3':
-        return render(request, "jogo/nivel_3.html")
+        qtd = 7
     else:
-        return render(request, "jogo/menu.html")
+        qtd = 1
+    return render(request, "jogo/nivel_1.html")

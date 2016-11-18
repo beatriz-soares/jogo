@@ -1,15 +1,16 @@
+//OBSERVAÇÃO: 'torus' é elemento BABYLON, e 'toro' é recipiente de coordenadas xy.
+
 /*SEÇÃO: DECLARAÇÃO DE VARIÁVEIS IMPORTANTES*/
+console.log(qtd)
 var matriz_pos = [
-    // Matriz de posição dos toros. Cada número diz respeito a um toro.
-  [0,0,0,0,1,2,3], //Poste 1
+    /*Matriz de posição dos toros. Cada número diz respeito a um toro.
+    Esta matriz está preenchida com zeros e será posteriormente preenchida
+    com números.
+    */
+  [0,0,0,0,0,0,0], //Poste 1
   [0,0,0,0,0,0,0], //Poste 2
   [0,0,0,0,0,0,0]  //Poste 3
 ];
-
-var rc = {toro1:{x:-6,y:  0 },//Variável que abriga as coordenadas (x,y)dos toros.
-          toro2:{x:-6,y:-0.7},//"rc" significa "recipiente de coordenadas"
-          toro3:{x:-6,y:-1.2}}
-
 
 /* Abaixo: variável que mapeia uma posição da matriz de posição para uma
 coordenada cartesiana. Por exemplo: se eu estou no segundo poste e o toro mais
@@ -26,8 +27,16 @@ var coordenadas_possiveis = {x:{0:-6,
                                 4:0,
                                 5:-0.7,
                                 6:-1.2}
-                         }
+                            }
 
+// Coordenadas iniciais dos toros, todos no mesmo poste.
+for (i = 0; i < qtd; i++){
+    toro_atual = 'toro' + (i+1);
+    altura = (7 - qtd) + i;
+    eval(`${toro_atual} = {x:${coordenadas_possiveis.x[0]}, y:${coordenadas_possiveis.y[altura]}}`)
+    // As linhas a seguir populam a variável matriz_pos.
+    matriz_pos[0][altura] = i+1;
+}
 // pegando o elemento CANVAS
 var canvas = document.getElementById('renderCanvas');
 
@@ -35,7 +44,6 @@ var canvas = document.getElementById('renderCanvas');
 var engine = new BABYLON.Engine(canvas, true);
 
 /*FIM SEÇÃO*/
-
 
 /* SEÇÃO: MAIN*/
 
@@ -52,7 +60,9 @@ window.addEventListener('DOMContentLoaded', function(){
     $("#muda").click(function(){
         de = $("#de_field").val() - 1
         para = $("#para_field").val() - 1
+        logar_matriz_pos();
         movimentar_toro(de,para);
+        logar_matriz_pos();
         estado_invalido();
         atualizar_coordenadas();
         scene = createScene();
@@ -92,30 +102,19 @@ function movimentar_toro(poste_origem, poste_destino) {
 }
 
 function atualizar_coordenadas(){
-    /*Analisa a matriz de posições e atualiza rc(recipiente de coordenadas).
+    /*Analisa a matriz de posições e atualiza as coordenadas de cada toro
+    encontrado.
     Escolhi usar vários laços ao invés de vários IFs pois é mais organizado.
     */
-    //Encontrar e atualizar para o toro 1:
-    for (poste = 0; poste < 3; poste++){
-        for (altura = 0; altura < 7; altura++){
-            if (matriz_pos[poste][altura] == 1){
-                rc.toro1.x = coordenadas_possiveis.x[poste]
-                rc.toro1.y = coordenadas_possiveis.y[altura]
-            }}}
-    //Encontrar e atualizar para o toro 2:
-    for (poste = 0; poste < 3; poste++){
-        for (altura = 0; altura < 7; altura++){
-            if (matriz_pos[poste][altura] == 2){
-                rc.toro2.x = coordenadas_possiveis.x[poste]
-                rc.toro2.y = coordenadas_possiveis.y[altura]
-            }}}
-    //Encontrar e atualizar para o toro 3:
-    for (poste = 0; poste < 3; poste++){
-        for (altura = 0; altura < 7; altura++){
-            if (matriz_pos[poste][altura] == 3){
-                rc.toro3.x = coordenadas_possiveis.x[poste]
-                rc.toro3.y = coordenadas_possiveis.y[altura]
-            }}}
+    for (i = 1; i <= qtd; i++){
+        toro_atual = 'toro' + i; //lembrando que toro é a posição, não o BABYLON
+        for (poste = 0; poste < 3; poste++){
+            for (altura = 0; altura < 7; altura++){
+                if (matriz_pos[poste][altura] == i){
+                    eval(`${toro_atual}.x = coordenadas_possiveis.x[poste]`);
+                    eval(`${toro_atual}.y = coordenadas_possiveis.y[altura]`);
+                }}}
+    }
 }
 
 function logar_matriz_pos(){
@@ -143,11 +142,6 @@ function estado_invalido(){
             }}}
 }
 
-function popular_toros(qtd){
-    /*Declara a quantidade de toros de acordo com o nivel de dificuldade.
-    */
-}
-
 function createScene(){
     /*Função que constrói a cena
     */
@@ -156,7 +150,7 @@ function createScene(){
 
     // criando a FreeCamera, e setando sua posição para (x:0, y:5, z:-10) é ela que vai dar
     // a perspectiva de onde estaremos olhando os elementos
-    var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5,-15), scene);
+    var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5,-10), scene);
 
     // direcionando o camera para a origem da cena
     camera.setTarget(BABYLON.Vector3.Zero());
@@ -165,14 +159,10 @@ function createScene(){
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,-0.5), scene);
 
     // criando os elementos
-    var torus = BABYLON.Mesh.CreateTorus("torus", 0.5, 1, 10, scene);
-    var torus2 = BABYLON.Mesh.CreateTorus("torus2", 1, 1, 10, scene);
-    var torus3 = BABYLON.Mesh.CreateTorus("torus3", 3.5, 1, 10, scene);
     for (i = 1; i <= qtd; i++){
         torus_atual = 'torus' + i;
         tamanho = i / 2;
-        eval (`var ${torus_atual} = ${tamanho}`)//por fazer!
-
+        eval(`var ${torus_atual} = BABYLON.Mesh.CreateTorus("${torus_atual}", ${tamanho}, 1, 10, scene);`)
     }
     var cylinder = BABYLON.Mesh.CreateCylinder("cylinder", 4, 0.3, 0.3, 6, 1, scene);
     var cylinder2 = BABYLON.Mesh.CreateCylinder("cylinder2", 4, 0.3, 0.3, 6, 1, scene);
@@ -180,23 +170,28 @@ function createScene(){
 
     // isso é para mudar a cor, e também podemos usar imagems para ser a textura usando o diffuseTexture
     var materialtorus = new BABYLON.StandardMaterial("texture1", scene);
-    torus.material = materialtorus;
-    torus2.material = materialtorus;
-    torus3.material = materialtorus;
+    for (i = 1; i <= qtd; i++){
+        torus_atual = 'torus' + i;
+        eval(`${torus_atual}.material = materialtorus;`)
+    }
     materialtorus.diffuseColor = new BABYLON.Color3(0.9, 0.29, 0.23);
 
     //posição dos elementos no eixo X
-    torus.position.x = rc.toro1.x;
-    torus2.position.x= rc.toro2.x;
-    torus3.position.x= rc.toro3.x;
+    for (i = 1; i <= qtd; i++){
+        torus_atual = 'torus' + i;
+        toro_atual = 'toro' + i;
+        eval(`${torus_atual}.position.x = ${toro_atual}.x;`)
+    }
     cylinder.position.x = -6;
     cylinder2.position.x = 0;
     cylinder3.position.x = 6;
 
     // posição dos elementos no eixo Y
-    torus.position.y = rc.toro1.y;
-    torus2.position.y= rc.toro2.y;
-    torus3.position.y= rc.toro3.y;
+    for (i = 1; i <= qtd; i++){
+        torus_atual = 'torus' + i;
+        toro_atual = 'toro' + i;
+        eval(`${torus_atual}.position.y = ${toro_atual}.y;`)
+    }
     cylinder.position.y = 1;
     cylinder2.position.y = 1;
     cylinder3.position.y = 1;
