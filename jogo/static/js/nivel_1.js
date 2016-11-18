@@ -1,11 +1,11 @@
 //OBSERVAÇÃO: 'torus' é elemento BABYLON, e 'toro' é recipiente de coordenadas xy.
 
 /*SEÇÃO: DECLARAÇÃO DE VARIÁVEIS IMPORTANTES*/
-console.log(qtd)
+
 var matriz_pos = [
     /*Matriz de posição dos toros. Cada número diz respeito a um toro.
     Esta matriz está preenchida com zeros e será posteriormente preenchida
-    com números.
+    com outros números.
     */
   [0,0,0,0,0,0,0], //Poste 1
   [0,0,0,0,0,0,0], //Poste 2
@@ -34,7 +34,7 @@ for (i = 0; i < qtd; i++){
     toro_atual = 'toro' + (i+1);
     altura = (7 - qtd) + i;
     eval(`${toro_atual} = {x:${coordenadas_possiveis.x[0]}, y:${coordenadas_possiveis.y[altura]}}`)
-    // As linhas a seguir populam a variável matriz_pos.
+    // A linha a seguir popula a variável matriz_pos.
     matriz_pos[0][altura] = i+1;
 }
 // pegando o elemento CANVAS

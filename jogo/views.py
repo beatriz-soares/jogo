@@ -10,7 +10,7 @@ def index(request):
 def instrucoes(request):
     return render(request, "jogo/instrucoes.html")
 
-# A função jogo retorna htmls diferentes dependendo do nível que o usuário escolheu
+# A função jogo define a quantidade de discos nos postes
 def jogo(request, id):
     if id == '1':
         qtd = 3
@@ -20,4 +20,4 @@ def jogo(request, id):
         qtd = 7
     else:
         qtd = 1
-    return render(request, "jogo/nivel_1.html")
+    return render(request, "jogo/jogo.html", locals())
