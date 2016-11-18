@@ -21,3 +21,6 @@ def jogo(request, id):
     else:
         qtd = 1
     return render(request, "jogo/jogo.html", locals())
+
+def sair(request):
+    return render(request, "jogo/saida.html")
