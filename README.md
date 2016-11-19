@@ -8,7 +8,7 @@ Tutorial de como fazê-lo em:
     <li>Linux: <ol><li>http://ubuntued.info/como-instalar-o-django-no-ubuntu</li>
         <li>https://www.vivaolinux.com.br/dica/Instalacao-do-Django</li>
         <li>https://estudepy.wordpress.com/2013/06/26/instalando-ambiente-de-desenvolvimento-python-e-django-com-virtualenv-no-ubuntu/</li></ol></li></ul>
-<em>Observação: a maioria das distribuições do Linux já incluem o python. Digite no terminal<br> $python --version</em><br><br>
+<em>Observação: a maioria das distribuições do Linux já incluem o python. Digite no terminal<br> $ python --version</em><br><br>
 <strong>2º: RODAR O SERVIDOR</strong><br/>
 <ol>
 <li>Mudar de diretórios até a pasta que contém o arquivo "manage.py"</li>
@@ -20,4 +20,4 @@ Tutorial de como fazê-lo em:
 </ol>
 <strong>3º: JOGAR</strong>
 
-<em>Observação: será interessante testar o jogo com acesso à internet, uma vez que existem recursos (fontes) carregads de serovidores externos.</em>
+<em>Observação: será interessante testar o jogo com acesso à internet, uma vez que existem recursos (fontes) carregadas de serovidores externos.</em>
