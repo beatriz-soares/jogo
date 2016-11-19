@@ -1,8 +1,8 @@
 Jogo: Torre de Hanoi desenvolvido em Python com Django.
 
-INSTRUÇÕES PARA RODAR
+<h1>INSTRUÇÕES PARA RODAR</h1>
 
-1º: INSTALAR PYTHON E DJANGO
+1º: INSTALAR PYTHON E DJANGO <br/>
 Tutorial de como fazê-lo em:
     [*] Windows: http://pythonclub.com.br/instalacao-python-django-windows.html
     [*] Linux: http://ubuntued.info/como-instalar-o-django-no-ubuntu
