@@ -12,7 +12,7 @@ Tutorial de como fazê-lo em:
 2º: RODAR O SERVIDOR<br/>
 <ol>
 <li>Mudar de diretórios até a pasta que contém o arquivo "manage.py"</li>
-<li>comando: $ python manage.py runserver</li>
+<li>comando no terminal: `$ python manage.py runserver</li>`
 <li>Acessar através do navegador o endereço e porta indicados. Por padrão, o endereço
     será http://127.0.0.1:8000/</li>
 </ol>
