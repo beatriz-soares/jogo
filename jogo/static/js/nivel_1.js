@@ -61,7 +61,6 @@ window.addEventListener('DOMContentLoaded', function(){
         de = $("#de_field").val() - 1
         para = $("#para_field").val() - 1
         movimentar_toro(de,para);
-        estado_atual();
         atualizar_coordenadas();
         scene = createScene();
        });
@@ -75,13 +74,26 @@ window.addEventListener('DOMContentLoaded', function(){
 function movimentar_toro(poste_origem, poste_destino) {
     /*Busca o toro de cima do poste_origem e o posiciona no topo
     do poste_destino. Os postes são 0, 1 e 2!
+    Vou criar uma cópia de  matriz_pos.
     */
+    var copia = [
+      [0,0,0,0,0,0,0], //Poste 1
+      [0,0,0,0,0,0,0], //Poste 2
+      [0,0,0,0,0,0,0]  //Poste 3
+    ];
+    for (poste = 0; poste < 3; poste++){
+        for (nivel = 0; nivel < 7; nivel++){
+            copia[poste][nivel] = matriz_pos[poste][nivel];
+        }
+    }
+
+
     meu_toro = 0;
     //1º: encontrar o toro
     for (i = 0; i < 7; i++){
-        if (matriz_pos[poste_origem][i] != 0){
-            meu_toro = matriz_pos[poste_origem][i];
-            matriz_pos[poste_origem][i] = 0;
+        if (copia[poste_origem][i] != 0){
+            meu_toro = copia[poste_origem][i];
+            copia[poste_origem][i] = 0;
             break;
         }
         if (i == 6){
@@ -90,12 +102,20 @@ function movimentar_toro(poste_origem, poste_destino) {
     //2º: sua posição final
     if (meu_toro != 0){
         for (i = 0; i < 7; i++){
-            if (matriz_pos[poste_destino][i] != 0){
-                matriz_pos[poste_destino][i-1] = meu_toro;
+            if (copia[poste_destino][i] != 0){
+                copia[poste_destino][i-1] = meu_toro;
                 break;
             }
             if (i == 6){
-                matriz_pos[poste_destino][i] = meu_toro;
+                copia[poste_destino][i] = meu_toro;
+            }}}
+
+    if (estado_atual(copia) != -1){
+        // Se a copia da matriz não for uma matriz impossível (com alguma Jogada
+        // inválida), então deixaremos a jogada ser efetuada.
+        for (poste = 0; poste < 3; poste++){
+            for (nivel = 0; nivel < 7; nivel++){
+                matriz_pos[poste][nivel] = copia[poste][nivel];
             }}}
 }
 
@@ -128,8 +148,10 @@ function logar_matriz_pos(){
     }
 }
 
-function estado_atual(){
-    /*Avalia a situação atual. Retorna:
+function estado_atual(matriz_alvo){
+    /*Avalia a situação atual. Recebe a matriz onde será realizada a avaliação,
+    que pode ser a matriz_pos mesmo ou ainda uma matriz cópia.
+    Retorna:
     1 : Objetivo concluído (vitória)
     0 : Jogo em curso normal
     -1: Jogada inválida realizada
@@ -137,13 +159,13 @@ function estado_atual(){
     //Testa -1:
     for (poste = 0; poste < 3; poste++){
         for (nivel = 1; nivel < 7; nivel++){
-            if (matriz_pos[poste][nivel] < matriz_pos[poste][nivel-1]){
+            if (matriz_alvo[poste][nivel] < matriz_alvo[poste][nivel-1]){
                 console.log('Jogada invalida realizada.')
                 return -1;
             }}}
 
     //Testa 1:
-    if (matriz_pos[1][7-qtd] != 0 || matriz_pos[2][7-qtd] != 0){
+    if (matriz_alvo[1][7-qtd] != 0 || matriz_alvo[2][7-qtd] != 0){
         console.log('Fim de jogo!')
         return 1;
     }
