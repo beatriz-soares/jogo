@@ -19,3 +19,5 @@ Tutorial de como fazê-lo em:
     será http://127.0.0.1:8000/</li>
 </ol>
 3º: JOGAR
+
+<em>Observação: será interessante testar o jogo com acesso à internet, uma vez que existem recursos (fontes) carregadas de servidores externos.</em>
