@@ -28,6 +28,11 @@ var coordenadas_possiveis = {x:{0:-6,
                                 5:-0.7,
                                 6:-1.2}
                             }
+//Número mínimo de jogadas necessárias para completar o jogo e jogadas já feitas
+
+var minimo = Math.pow(2,qtd) - 1;
+var jogadas = 0;
+var pontos = 1000;
 
 // Coordenadas iniciais dos toros, todos no mesmo poste.
 for (i = 0; i < qtd; i++){
@@ -50,6 +55,7 @@ var engine = new BABYLON.Engine(canvas, true);
 window.addEventListener('DOMContentLoaded', function(){
     // construindo a cena
     var scene = createScene();
+    $("#minimo").text(minimo);
 
     // renderiza o loop para a cena aparecer
     engine.runRenderLoop(function(){
@@ -60,12 +66,29 @@ window.addEventListener('DOMContentLoaded', function(){
     $("#muda").click(function(){
         de = $("#de_field").val() - 1
         para = $("#para_field").val() - 1
-        logar_matriz_pos();
-        movimentar_toro(de,para);
-        logar_matriz_pos();
-        estado_invalido();
-        atualizar_coordenadas();
-        scene = createScene();
+        if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
+            alert("Escolha pinos válidos");
+        }
+        else{
+            jogadas++;
+            logar_matriz_pos();
+            movimentar_toro(de,para);
+            logar_matriz_pos();
+            estado_invalido();
+            atualizar_coordenadas();
+            scene = createScene();
+
+            if (jogadas>minimo){
+                $("#jogadas").css("color", "red");
+                pontos-=10;
+            }
+            else{
+                pontos-=2;
+            }
+            $("#pontos").text(pontos)
+            $("#jogadas").text(jogadas);
+            checar_vitoria();
+         }
        });
 
 });
@@ -78,27 +101,35 @@ function movimentar_toro(poste_origem, poste_destino) {
     /*Busca o toro de cima do poste_origem e o posiciona no topo
     do poste_destino. Os postes são 0, 1 e 2!
     */
+    var linha = 0;
     meu_toro = 0;
     //1º: encontrar o toro
     for (i = 0; i < 7; i++){
         if (matriz_pos[poste_origem][i] != 0){
             meu_toro = matriz_pos[poste_origem][i];
+            linha = i;
             matriz_pos[poste_origem][i] = 0;
             break;
         }
         if (i == 6){
             console.log("Aviso: toro não encontrado. O poste está vazio.");
+            jogadas --;
         }}
     //2º: sua posição final
     if (meu_toro != 0){
         for (i = 0; i < 7; i++){
-            if (matriz_pos[poste_destino][i] != 0){
+            if (matriz_pos[poste_destino][i] != 0 && meu_toro < matriz_pos[poste_destino][i]){
                 matriz_pos[poste_destino][i-1] = meu_toro;
                 break;
             }
-            if (i == 6){
+            if (i == 6 && matriz_pos[poste_destino][i]==0){
                 matriz_pos[poste_destino][i] = meu_toro;
-            }}}
+            }
+            else if (i==6 && matriz_pos[poste_destino][i] !=0){
+                matriz_pos[poste_origem][linha] = meu_toro;
+                alert("Escolha pinos válidos");
+            }
+            }}
 }
 
 function atualizar_coordenadas(){
@@ -140,6 +171,12 @@ function estado_invalido(){
                 console.log('Jogada invalida realizada.')
                 return false;
             }}}
+}
+function checar_vitoria(){
+    if (matriz_pos[1][7-qtd]!=0 ||matriz_pos[2][7-qtd]!=0){
+        alert("Fim de jogo! Pontuação: "+pontos);
+        $(location).attr('href', 'http://localhost:8000/transicao/'+pontos)
+    }
 }
 
 function createScene(){
