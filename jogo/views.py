@@ -22,5 +22,6 @@ def jogo(request, id):
         qtd = 1
     return render(request, "jogo/jogo.html", locals())
 
-def sair(request):
-    return render(request, "jogo/saida.html")
+def transicao(request, pontos):
+    pontos = pontos
+    return render(request, "jogo/transicao.html", {'pontos':pontos})
