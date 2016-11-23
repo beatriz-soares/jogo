@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-# Create your views here.from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+
+# saida
+# Precisamos deixar a sessão zerada na saída!!.
+# if 'qtd' in request.session:
+#     del request.session['qtd']
+# if 'jogador1' in request.session:
+#     del request.session['jogador1']
+# if 'jogador2' in request.session:
+#     del request.session['jogador2']
+
 
 # Página principal retorna o HTML do menu
 def index(request):
@@ -10,25 +21,26 @@ def index(request):
 def instrucoes(request):
     return render(request, "jogo/instrucoes.html")
 
-# A função jogo define a quantidade de discos nos postes
 def jogo(request):
-    # Detectar a dificuldade do jogo. O padrão é fácil:
+    # Define a quantidade de discos nos postes
+    # Detectar a dificuldade do jogo. O padrão é o nível fácil:
     if 'nivel1' in request.POST:
-        qtd = 3
+        request.session['qtd'] = 3
     elif 'nivel2' in request.POST:
-        qtd = 5
+        request.session['qtd'] = 5
     elif 'nivel3' in request.POST:
-        qtd = 7
+        request.session['qtd'] = 7
     else:
-        qtd = 3
+        request.session['qtd'] = 3
 
-    # Detectar o modo de jogo.
+    # Detectar o modo de jogo. O tamanho da lista declarada abaixo é
+    # a quantidade de nomes a serem perguntados na template.
     if 'gamemode' in request.POST:
-        gamemode = 'singleplayer'
+        range_nomes = [1]
     else:
-        gamemode = 'multiplayer'
-        
-    return render(request, "jogo/jogo.html", locals())
+        range_nomes = [1,2]
+
+    return render(request, "jogo/coletar_nomes_jogadores.html", locals())
 
 def transicao(request, pontos):
     pontos = pontos
