@@ -63,18 +63,18 @@ window.addEventListener('DOMContentLoaded', function(){
     });
 
     //criando um evento para mudar a posição do toro quando o botão de id=muda for clicado
+    // $("#ativar_modal").click()
     $("#muda").click(function(){
         de = $("#de_field").val() - 1
         para = $("#para_field").val() - 1
         if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
-            alert("Escolha pinos válidos");
+            alert(`${nome}, Escolha pinos válidos`);
         }
         else{
             jogadas++;
             logar_matriz_pos();
             movimentar_toro(de,para);
             logar_matriz_pos();
-            estado_invalido();
             atualizar_coordenadas();
             scene = createScene();
 
@@ -100,7 +100,6 @@ window.addEventListener('DOMContentLoaded', function(){
 function movimentar_toro(poste_origem, poste_destino) {
     /*Busca o toro de cima do poste_origem e o posiciona no topo
     do poste_destino. Os postes são 0, 1 e 2!
-    Vou criar uma cópia de  matriz_pos.
     */
     var linha = 0;
     meu_toro = 0;
@@ -128,7 +127,7 @@ function movimentar_toro(poste_origem, poste_destino) {
             }
             else if (i==6 && matriz_pos[poste_destino][i] !=0){
                 matriz_pos[poste_origem][linha] = meu_toro;
-                alert("Escolha pinos válidos");
+                alert(`${nome}, Escolha pinos válidos`);
             }
             }}
 }
@@ -162,33 +161,20 @@ function logar_matriz_pos(){
     }
 }
 
-function estado_atual(matriz_alvo){
-    /*Avalia a situação atual. Recebe a matriz onde será realizada a avaliação,
-    que pode ser a matriz_pos mesmo ou ainda uma matriz cópia.
-    Retorna:
-    1 : Objetivo concluído (vitória)
-    0 : Jogo em curso normal
-    -1: Jogada inválida realizada
+function estado_invalido(){
+    /*Retorna valor booleano verdadeiro se o estado atual do jogo for inválido, isto é,
+    se houver uma peça qualquer em cima de outra menor.
     */
-    //Testa -1:
     for (poste = 0; poste < 3; poste++){
         for (nivel = 1; nivel < 7; nivel++){
-            if (matriz_alvo[poste][nivel] < matriz_alvo[poste][nivel-1]){
+            if (matriz_pos[poste][nivel] < matriz_pos[poste][nivel-1]){
                 console.log('Jogada invalida realizada.')
-                return -1;
+                return false;
             }}}
-
-    //Testa 1:
-    if (matriz_alvo[1][7-qtd] != 0 || matriz_alvo[2][7-qtd] != 0){
-        console.log('Fim de jogo!')
-        return 1;
-    }
-
-    return 0;
 }
 function checar_vitoria(){
     if (matriz_pos[1][7-qtd]!=0 ||matriz_pos[2][7-qtd]!=0){
-        alert("Fim de jogo! Pontuação: "+pontos);
+        alert(`Fim de jogo! Pontuação de ${nome}: ${pontos}`);
         $(location).attr('href', 'http://localhost:8000/transicao/'+pontos)
     }
 }

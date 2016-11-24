@@ -47,8 +47,31 @@
     <br>
 
     <canvas id="renderCanvas"></canvas>
+    <div id="ativar_modal" data-toggle="modal" data-target="#myModal"></div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="font-size: 200%;">Escolha um nível</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="btn btn-success nivel" name="nivel1">
+                        <p class="dificuldade">Prepare-se, {{nome}}!</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 <script>
 var qtd = "{{qtd}}";
+nome = "{{nome}}";
+
+$(document).ready(function(){
+    alert(`${nome}, prepare-se para raciocinar!`);
+})
 </script>
 <script src="{% static 'js/nivel_2.js' %}"></script>
 </body>

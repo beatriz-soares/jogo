@@ -22,10 +22,21 @@
             <img class="form-signin-heading" src="{% static 'images/logo.png' %}"/>
             <hr>
             <br>
-            DIGITE O NOME DE QUEM JOGARÁ:
+            <p class="lead">Digite o nome de quem jogará: </class>
+
+            <br/>
+            <form method="post">
+                {% csrf_token %}
             {% for i in range_nomes %}
-            <input type="text" />
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Jogador {{forloop.counter}}</span>
+              <input type="text" class="form-control" placeholder="Nome" aria-describedby="basic-addon1" name="nome_jogador{{forloop.counter}}">
+            </div>
+            <br/>
             {% endfor %}
+            <button type="submit" class="btn btn-outline-success">Jogar</button>
+
+        </form>
 
         </div>
     </div>

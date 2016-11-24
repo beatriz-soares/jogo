@@ -44,7 +44,7 @@
                     <div class="modal-body">
 
 
-                    <form method="post" action="{% url 'jogo' %}">
+                    <form method="post">
                         {% csrf_token %}
                         <input id="gamemode" type="checkbox" name="gamemode" checked data-toggle="toggle" data-on="Single player" data-off="Multiplayer" data-width="15em" data-offstyle="danger">
 
