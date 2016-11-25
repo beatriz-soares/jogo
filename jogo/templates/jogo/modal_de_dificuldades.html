@@ -1,0 +1,37 @@
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" style="font-size: 200%;">Escolha um nível</h4>
+			</div>
+			<div class="modal-body">
+
+
+			<form method="post" action="{% url 'configurar_modal' %}">
+				{% csrf_token %}
+				<input id="gamemode" type="checkbox" name="gamemode" checked data-toggle="toggle" data-on="Single player" data-off="Multiplayer" data-width="15em" data-offstyle="danger">
+
+
+				<button type="submit" class="btn btn-success nivel" name="nivel1">
+					<p class="dificuldade">Nível 1 - Fácil</p>
+					<p>(3 pinos)</p>
+				</button>
+				<br>
+				<button type="submit" class="btn btn-warning nivel" name="nivel2">
+					<p class="dificuldade">Nível 2 - Médio</p>
+					<p>(5 pinos)</p>
+				</button>
+				<br>
+				<button type="submit" class="btn btn-danger nivel" name="nivel3">
+					<p class="dificuldade">Nível 3 - Difícil</p>
+					<p>(7 pinos)</p>
+				</button>
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>

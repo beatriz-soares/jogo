@@ -187,7 +187,7 @@ function estado_invalido(){
 function checar_vitoria(){
     if (matriz_pos[1][7-qtd]!=0 ||matriz_pos[2][7-qtd]!=0){
         alert(`Fim de jogo! Pontuação de ${nome}: ${pontos}`);
-        $(location).attr('href', 'http://localhost:8000/transicao/'+pontos)
+        $(location).attr('href', '/transicao/'+pontos)
     }
 }
 
