@@ -17,41 +17,58 @@
         }
 
         #renderCanvas {
-            width   : 80%;
-            height  : 80%;
-            margin-left: 10%;
+            width   : 100%;
+            height  : 100%;
+            margin-left: 1%;
             touch-action: none;
             box-shadow: 10px 10px 5px grey;
         }
         .row{
-            margin-left: 10%;
+            margin-left: 1%;
+            background-color: #7f7f7f;
         }
         .alert{
             height: 35px;
             padding-top: 5px;
             text-align: center;
         }
-
+        #timer{
+            font-size: 40px;
+            height: 50px;
+            color: white;
+            text-align: center;
+        }
+        #jog,#muda, #de_field, #para_field, #reiniciar{
+            margin-top: 20px;
+        }
+        #muda{
+            font-size: 20px;
+        }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include 'jogo/css_e_scripts.html' %}
 </head>
     <script src="{% static 'js/babylon.js' %}"></script>
+    <script src="{% static 'js/timer.js' %}"></script>
 </head>
 <body>
     <div id="mostrar_modal" data-toggle="modal" data-target="#myModal" style="display:none;"></div>
-    <div class="row">
-    <input type="text" class="col-md-2" placeholder="De" id="de_field">
-    <input type="text" class="col-md-2" placeholder="Para" id="para_field">
-    <button id="muda" class="btn btn-primary col-md-2">Vai</button>
-        <div class="alert alert-info col-md-2"> Jogadas: <span id="jogadas">0</span> de <span id="minimo"></span></div>
-        <div class="alert alert-success col-md-2"> Pontos: <strong id="pontos">1000</strong></div>
-        </div>
-    <br>
 
+<div class="row">
+    <div class="row col-md-2">
+            <input type="text" class="col-md-6" placeholder="De" id="de_field">
+            <input type="text" class="col-md-6" placeholder="Para" id="para_field">
+        <button id="muda" class="btn btn-warning col-md-12">Vai</button>
+        <div class="alert alert-info col-md-12" id="jog"> Jogadas: <span id="jogadas">0</span> de <span id="minimo"></span></div>
+        <div class="alert alert-success col-md-12"> Pontos: <strong id="pontos">1000</strong></div>
+        <div class="col-md-12" id="timer"></div>
+        <button class="btn btn-default col-md-12" id="reiniciar">Reiniciar</button>
+    </div>
+    <div class="col-md-10">
     <canvas id="renderCanvas"></canvas>
-
+    </div>
+</div>
 <script src="{% static 'js/nivel_2.js' %}"></script>
 
 <!-- Modal -->
@@ -65,6 +82,7 @@
             </div>
             <div class="modal-body">
                 <p id="corpo_texto_modal" class="lead text-center"></p>
+                <p id="texto_secundario_modal" class="lead text-center"></p>
                 <br>
                 <br>
                 <button id="comecar_jogo" class="btn btn-danger nivel" name="nivel3">
@@ -95,6 +113,9 @@ $("#comecar_jogo").click(function(){
     // faremos o teste para saber se o jogo acabou. Se for o caso, então redirecionamos
     // a página.
     $('#myModal').modal('hide');
+    if ($("#texto_botao_modal").text() == "COMEÇAR"){
+    $('#timer').timer('resume');
+    }
     if ($("#texto_botao_modal").text() == "Continuar"){
         // Continuar é o texto do botão na situação em que o jogo acabou!
         $(location).attr('href', '/transicao/'+pontos)

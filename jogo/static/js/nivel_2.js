@@ -11,7 +11,6 @@ var matriz_pos = [
   [0,0,0,0,0,0,0], //Poste 2
   [0,0,0,0,0,0,0]  //Poste 3
 ];
-
 /* Abaixo: variável que mapeia uma posição da matriz de posição para uma
 coordenada cartesiana. Por exemplo: se eu estou no segundo poste e o toro mais
 em cima, então as minhas coordenadas são x[1](ou seja, poste 2) e y[0](ou seja,
@@ -51,7 +50,8 @@ var engine = new BABYLON.Engine(canvas, true);
 /*FIM SEÇÃO*/
 
 /* SEÇÃO: MAIN*/
-
+$('#timer').timer();
+$('#timer').timer('pause');
 window.addEventListener('DOMContentLoaded', function(){
     // construindo a cena
     var scene = createScene();
@@ -67,51 +67,50 @@ window.addEventListener('DOMContentLoaded', function(){
     $("#muda").click(function(){
         // alt
 
-        logar_matriz_pos();
-        movimentar_toro(0,1);
-        movimentar_toro(0,2);
-        movimentar_toro(1,2);
-        movimentar_toro(0,1);
-        movimentar_toro(2,0);
-        movimentar_toro(2,1);
-        movimentar_toro(0,1);
-        logar_matriz_pos();
-        atualizar_coordenadas();
-        scene = createScene();
-        checar_vitoria();
+        // logar_matriz_pos();
+        // movimentar_toro(0,1);
+        // movimentar_toro(0,2);
+        // movimentar_toro(1,2);
+        // movimentar_toro(0,1);
+        // movimentar_toro(2,0);
+        // movimentar_toro(2,1);
+        // movimentar_toro(0,1);
+        // logar_matriz_pos();
+        // atualizar_coordenadas();
+        // scene = createScene();
+        // checar_vitoria();
 
         // fim
         // alt
 
-        // de = $("#de_field").val() - 1
-        // para = $("#para_field").val() - 1
-        // if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
-        //     $("#titulo_modal").text("Aviso")
-        //     $("#corpo_texto_modal").text(nome+", você tentou realizar jogada inválida!")
-        //     $("#texto_botao_modal").text("Entendi")
-        //     $("#mostrar_modal").click()
-        // }
-        // else{
-        //     jogadas++;
-        //     logar_matriz_pos();
-        //     movimentar_toro(de,para);
-        //     logar_matriz_pos();
-        //     atualizar_coordenadas();
-        //     scene = createScene();
-        //
-        //     if (jogadas>minimo){
-        //         $("#jogadas").css("color", "red");
-        //         pontos-=10;
-        //     }
-        //     else{
-        //         pontos-=2;
-        //     }
-        //     $("#pontos").text(pontos)
-        //     $("#jogadas").text(jogadas);
-        //     checar_vitoria();
-        //  }
+        de = $("#de_field").val() - 1
+        para = $("#para_field").val() - 1
+        if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
+            alert("Escolha pinos válidos");
+        }
+        else{
 
-        // fim
+            jogadas++;
+            logar_matriz_pos();
+            movimentar_toro(de,para);
+            logar_matriz_pos();
+            estado_invalido();
+            atualizar_coordenadas();
+            scene = createScene();
+            checar_vitoria();
+
+            if (jogadas>minimo){
+                $("#jogadas").css("color", "red");
+                pontos-=10;
+            }
+            else{
+                pontos-=2;
+            }
+            $("#pontos").text(pontos)
+            $("#jogadas").text(jogadas);
+         }
+
+        //  fim
        });
 
 });
@@ -200,8 +199,11 @@ function estado_invalido(){
 }
 function checar_vitoria(){
     if (matriz_pos[1][7-qtd]!=0 ||matriz_pos[2][7-qtd]!=0){
+        $('#timer').timer('pause');
+        tempo_total = $('#timer').data('seconds');
         $("#titulo_modal").text("Fim de Jogo!")
         $("#corpo_texto_modal").text(nome+", sua pontuação foi de "+pontos+"!!!")
+        $("#texto_secundario_modal").text("Seu tempo: "+tempo_total+" segundos")
         $("#texto_botao_modal").text("Continuar")
         $("#mostrar_modal").click()
     }
