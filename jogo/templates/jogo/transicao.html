@@ -6,6 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include 'jogo/css_e_scripts.html' %}
+    <style type="text/css">
+        .container-fluid{
+            margin-top: -6%;
+        }
+        .vencedor{
+            color:red;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
@@ -16,6 +25,13 @@
         <p class="lead">Pontuação de {{request.session.nome_jogador1}}: {{request.session.pontuacao_jogador1}}</p>
         {% if request.session.nome_jogador2 %}
         <p class="lead">Pontuação de {{request.session.nome_jogador2}}: {{request.session.pontuacao_jogador2}}</p>
+        {%if request.session.pontuacao_jogador1 > request.session.pontuacao_jogador2%}
+        <p class="lead vencedor">{{request.session.nome_jogador1}} venceu!</p>
+        {%elif request.session.pontuacao_jogador1 < request.session.pontuacao_jogador2%}
+                <p class="lead vencedor">{{request.session.nome_jogador2}} venceu!</p>
+        {%else%}
+        <p class="lead vencedor">Empatou!</p>
+        {% endif %}
         {% endif %}
         <br>
         <button type="button" class="btn btn-info btn-lg btn-block picks" data-toggle="modal" data-target="#myModal">

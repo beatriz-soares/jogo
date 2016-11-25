@@ -1,7 +1,6 @@
 //OBSERVAÇÃO: 'torus' é elemento BABYLON, e 'toro' é recipiente de coordenadas xy.
 
 /*SEÇÃO: DECLARAÇÃO DE VARIÁVEIS IMPORTANTES*/
-
 var matriz_pos = [
     /*Matriz de posição dos toros. Cada número diz respeito a um toro.
     Esta matriz está preenchida com zeros e será posteriormente preenchida
@@ -32,6 +31,7 @@ var coordenadas_possiveis = {x:{0:-6,
 var minimo = Math.pow(2,qtd) - 1;
 var jogadas = 0;
 var pontos = 1000;
+pontos_perdidos = 0;
 
 // Coordenadas iniciais dos toros, todos no mesmo poste.
 for (i = 0; i < qtd; i++){
@@ -65,52 +65,32 @@ window.addEventListener('DOMContentLoaded', function(){
     //criando um evento para mudar a posição do toro quando o botão de id=muda for clicado
     // $("#ativar_modal").click()
     $("#muda").click(function(){
-        // alt
 
-        logar_matriz_pos();
-        movimentar_toro(0,1);
-        movimentar_toro(0,2);
-        movimentar_toro(1,2);
-        movimentar_toro(0,1);
-        movimentar_toro(2,0);
-        movimentar_toro(2,1);
-        movimentar_toro(0,1);
-        logar_matriz_pos();
-        atualizar_coordenadas();
-        scene = createScene();
-        checar_vitoria();
+         de = $("#de_field").val() - 1
+        para = $("#para_field").val() - 1
+       if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
+            alert("Escolha pinos válidos");
+         }
+         else{
 
-        // fim
-        // alt
+             jogadas++;
+             logar_matriz_pos();
+             movimentar_toro(de,para);
+             logar_matriz_pos();
+             estado_invalido();
+             atualizar_coordenadas();
+             scene = createScene();
+             pontos_perdidos = parseInt($('#timer').data('seconds') * 0.2 + 0.5 * jogadas + 2);
+             pontos-=pontos_perdidos;
+             if (jogadas>minimo){
+                 $("#jogadas").css("color", "red");
+             }
 
-        // de = $("#de_field").val() - 1
-        // para = $("#para_field").val() - 1
-        // if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
-        //     alert("Escolha pinos válidos");
-        // }
-        // else{
-        //
-        //     jogadas++;
-        //     logar_matriz_pos();
-        //     movimentar_toro(de,para);
-        //     logar_matriz_pos();
-        //     estado_invalido();
-        //     atualizar_coordenadas();
-        //     scene = createScene();
-        //     checar_vitoria();
-        //
-        //     if (jogadas>minimo){
-        //         $("#jogadas").css("color", "red");
-        //         pontos-=10;
-        //     }
-        //     else{
-        //         pontos-=2;
-        //     }
-        //     $("#pontos").text(pontos)
-        //     $("#jogadas").text(jogadas);
-        //  }
+             $("#pontos").text(pontos)
+             $("#jogadas").text(jogadas);
+             checar_vitoria();
 
-        //  fim
+          }
        });
 
 });
