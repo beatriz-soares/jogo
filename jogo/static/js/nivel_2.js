@@ -11,7 +11,6 @@ var matriz_pos = [
   [0,0,0,0,0,0,0], //Poste 2
   [0,0,0,0,0,0,0]  //Poste 3
 ];
-
 /* Abaixo: variável que mapeia uma posição da matriz de posição para uma
 coordenada cartesiana. Por exemplo: se eu estou no segundo poste e o toro mais
 em cima, então as minhas coordenadas são x[1](ou seja, poste 2) e y[0](ou seja,
@@ -51,7 +50,7 @@ var engine = new BABYLON.Engine(canvas, true);
 /*FIM SEÇÃO*/
 
 /* SEÇÃO: MAIN*/
-
+$('#timer').timer();
 window.addEventListener('DOMContentLoaded', function(){
     // construindo a cena
     var scene = createScene();
@@ -70,6 +69,7 @@ window.addEventListener('DOMContentLoaded', function(){
             alert("Escolha pinos válidos");
         }
         else{
+
             jogadas++;
             logar_matriz_pos();
             movimentar_toro(de,para);
@@ -77,6 +77,7 @@ window.addEventListener('DOMContentLoaded', function(){
             estado_invalido();
             atualizar_coordenadas();
             scene = createScene();
+            checar_vitoria();
 
             if (jogadas>minimo){
                 $("#jogadas").css("color", "red");
@@ -87,7 +88,6 @@ window.addEventListener('DOMContentLoaded', function(){
             }
             $("#pontos").text(pontos)
             $("#jogadas").text(jogadas);
-            checar_vitoria();
          }
        });
 
@@ -174,7 +174,9 @@ function estado_invalido(){
 }
 function checar_vitoria(){
     if (matriz_pos[1][7-qtd]!=0 ||matriz_pos[2][7-qtd]!=0){
-        alert("Fim de jogo! Pontuação: "+pontos);
+        $('#timer').timer('pause');
+        tempo_total = $('#timer').data('seconds');
+        alert("Fim de jogo! Pontuação: "+pontos + "Tempo: "+tempo_total);
         $(location).attr('href', 'http://localhost:8000/transicao/'+pontos)
     }
 }
