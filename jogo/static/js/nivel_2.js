@@ -67,48 +67,48 @@ window.addEventListener('DOMContentLoaded', function(){
     $("#muda").click(function(){
         // alt
 
-        // logar_matriz_pos();
-        // movimentar_toro(0,1);
-        // movimentar_toro(0,2);
-        // movimentar_toro(1,2);
-        // movimentar_toro(0,1);
-        // movimentar_toro(2,0);
-        // movimentar_toro(2,1);
-        // movimentar_toro(0,1);
-        // logar_matriz_pos();
-        // atualizar_coordenadas();
-        // scene = createScene();
-        // checar_vitoria();
+        logar_matriz_pos();
+        movimentar_toro(0,1);
+        movimentar_toro(0,2);
+        movimentar_toro(1,2);
+        movimentar_toro(0,1);
+        movimentar_toro(2,0);
+        movimentar_toro(2,1);
+        movimentar_toro(0,1);
+        logar_matriz_pos();
+        atualizar_coordenadas();
+        scene = createScene();
+        checar_vitoria();
 
         // fim
         // alt
 
-        de = $("#de_field").val() - 1
-        para = $("#para_field").val() - 1
-        if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
-            alert("Escolha pinos válidos");
-        }
-        else{
-
-            jogadas++;
-            logar_matriz_pos();
-            movimentar_toro(de,para);
-            logar_matriz_pos();
-            estado_invalido();
-            atualizar_coordenadas();
-            scene = createScene();
-            checar_vitoria();
-
-            if (jogadas>minimo){
-                $("#jogadas").css("color", "red");
-                pontos-=10;
-            }
-            else{
-                pontos-=2;
-            }
-            $("#pontos").text(pontos)
-            $("#jogadas").text(jogadas);
-         }
+        // de = $("#de_field").val() - 1
+        // para = $("#para_field").val() - 1
+        // if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
+        //     alert("Escolha pinos válidos");
+        // }
+        // else{
+        //
+        //     jogadas++;
+        //     logar_matriz_pos();
+        //     movimentar_toro(de,para);
+        //     logar_matriz_pos();
+        //     estado_invalido();
+        //     atualizar_coordenadas();
+        //     scene = createScene();
+        //     checar_vitoria();
+        //
+        //     if (jogadas>minimo){
+        //         $("#jogadas").css("color", "red");
+        //         pontos-=10;
+        //     }
+        //     else{
+        //         pontos-=2;
+        //     }
+        //     $("#pontos").text(pontos)
+        //     $("#jogadas").text(jogadas);
+        //  }
 
         //  fim
        });

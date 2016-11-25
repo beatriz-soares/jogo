@@ -3,16 +3,6 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 
-# saida
-# Precisamos deixar a sessao zerada na saída!!.
-# if 'qtd' in request.session:
-#     del request.session['qtd']
-# if 'jogador1' in request.session:
-#     del request.session['jogador1']
-# if 'jogador2' in request.session:
-#     del request.session['jogador2']
-
-
 # Página principal retorna o HTML do menu
 def index(request):
     return render(request, "jogo/menu.html")
@@ -103,3 +93,30 @@ def sair_do_jogo(request):
     """
     request.session.flush()
     return HttpResponseRedirect('https://www.google.com.br/')
+
+def resetar_sessao(request):
+    """Apaga todos dados guardados na sessão, inclusive os nomes dos jogadores, pontuação etc
+    Redireciona para pagina principal!
+    """
+    request.session.flush()
+    return HttpResponseRedirect(reverse('index'))
+
+def recomecar_jogo(request):
+    """Depois da tela de fim de jogo, o jogador pode escolher jogar novamente, mantendo os jogadores
+    mas mudando o nivel de dificuldade. Esta view seta o nivel de dificuldade e reseta a variavel
+    'jogos_pendentes'.
+    """
+    if request.method == 'POST':
+        if 'nivel1' in request.POST:
+            request.session['qtd'] = 3
+        elif 'nivel2' in request.POST:
+            request.session['qtd'] = 5
+        elif 'nivel3' in request.POST:
+            request.session['qtd'] = 7
+        else:
+            request.session['qtd'] = 3
+
+        request.session['jogos_pendentes'] = request.session['numero_jogadores']
+
+        return render(request, "jogo/jogo.html", locals())
+    return resetar_sessao(request)
