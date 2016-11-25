@@ -22,8 +22,10 @@ def instrucoes(request):
     return render(request, "jogo/instrucoes.html")
 
 def nomear_jogadores(request):
-    # Guarda-se na sessao a quantidade de jogos que ainda faltam. Serve para
-    # dizer se ainda falta algum jogador participar.
+    """Guarda os nomes de todos jogadores que existirem (um ou dois) na sessão, e define a quantidade
+    de jogos a serem jogados. Se tiver um jogador, então a quantidade de jogos a serem jogados será 1,
+    por exemplo.
+    """
     request.session['jogos_pendentes'] = 0
     # Salva os nomes dos jogadores na sessao
     if request.method == 'POST':

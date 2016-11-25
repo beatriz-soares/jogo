@@ -1,8 +1,12 @@
 {% load staticfiles %}
 <html>
 <head>
+    <script>
+    // Declarar variaveis importantes! É importante que isso venha aqui em cima.
+    var qtd = "{{request.session.qtd}}";
+    var nome = "{{request.session.jogador_da_vez}}";
+    </script>
     <title>Torre de Hanói - Jogo</title>
-    <!--- link to the last version of babylon --->
     <style>
         html, body {
             overflow: hidden;
@@ -36,6 +40,7 @@
     <script src="{% static 'js/babylon.js' %}"></script>
 </head>
 <body>
+    <div id="mostrar_modal" data-toggle="modal" data-target="#myModal" style="display:none;"></div>
     <div class="row">
     <input type="text" class="col-md-2" placeholder="De" id="de_field">
     <input type="text" class="col-md-2" placeholder="Para" id="para_field">
@@ -46,32 +51,43 @@
     <br>
 
     <canvas id="renderCanvas"></canvas>
-    <div id="ativar_modal" data-toggle="modal" data-target="#myModal"></div>
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="font-size: 200%;">Escolha um nível</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="btn btn-success nivel" name="nivel1">
-                        <p class="dificuldade">Prepare-se, {{nome}}!</p>
-                    </div>
-                </div>
+
+<script src="{% static 'js/nivel_2.js' %}"></script>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center" style="font-size: 200%;">Prepare-se!</h4>
             </div>
-
+            <div class="modal-body">
+                <p class="lead text-center">{{request.session.jogador_da_vez}}, é a sua vez de raciocinar!</class>
+                <br>
+                <br>
+                <button id="comecar_jogo" class="btn btn-danger nivel" name="nivel3">
+					<p class="dificuldade">COMEÇAR</p>
+				</button>
+                <br>
+            </div>
         </div>
-    </div>
-<script>
-var qtd = "{{request.session.qtd}}";
-var nome = "{{request.session.jogador_da_vez}}";
 
+    </div>
+</div>
+<!-- fim modal -->
+</body>
+<script>
 $(document).ready(function(){
-    alert(`${nome}, prepare-se para raciocinar!`);
+    // Isto aqui é para aparecer o modal de recepção ao jogador
+    // assim que a tela do jogo for mostrada. Ou seja, a tela de "prepare-se!"
+    // É importante que isso venha aqui embaixo!
+    $("#mostrar_modal").click()
+})
+$("#comecar_jogo").click(function(){
+    // Aqui é para esconder o modal ao apertar no botão de "comecar"
+    $('#myModal').modal('hide');
 })
 </script>
-<script src="{% static 'js/nivel_2.js' %}"></script>
-</body>
 </html>
