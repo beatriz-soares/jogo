@@ -43,12 +43,20 @@ def instrucoes(request):
     return render(request, "jogo/instrucoes.html")
 
 def nomear_jogadores(request):
+    # Guarda-se na sessão a quantidade de jogos que ainda faltam. Serve para
+    # dizer se ainda falta algum jogador participar.
+    request.session['jogos_pendentes'] = 0
+
     # Salva os nomes dos jogadores na sessão
     if request.method == 'POST':
         if 'nome_jogador1' in request.POST:
             request.session['nome_jogador1'] = request.POST['nome_jogador1']
+            request.session['jogos_pendentes'] += 1
         if 'nome_jogador2' in request.POST:
             request.session['nome_jogador2'] = request.POST['nome_jogador2']
+            request.session['jogos_pendentes'] += 1
+
+        request.session['jogador_da_vez'] = request.POST['nome_jogador1']
 
         return HttpResponseRedirect(reverse('jogo'))
 
@@ -57,10 +65,23 @@ def nomear_jogadores(request):
     return render(request, "jogo/coletar_nomes_jogadores.html", locals())
 
 def jogo(request):
-    qtd = request.session['qtd']
-    nome = request.session['nome_jogador1']
     return render(request, "jogo/jogo.html", locals())
 
 def transicao(request, pontos):
-    pontos = pontos
-    return render(request, "jogo/transicao.html", {'pontos':pontos})
+    # Atribui a pontuação ao jogador da vez na sessão e muda o jogador da vez
+    if request.session['jogador_da_vez'] == request.session['nome_jogador1']:
+        request.session['pontos_jogador1'] = pontos
+        if 'nome_jogador2' in request.session:
+            request.session['jogador_da_vez'] == request.session['nome_jogador2']
+    else:
+        request.session['pontos_jogador2'] = pontos
+        request.session['jogador_da_vez'] == request.session['nome_jogador1']
+
+    # Atualiza a quantidade de jogos que ainda serao jogados.
+    request.session['jogos_pendentes'] -= 1
+
+    # Decide se manda pra tela de jogo de novo ou se manda pra tela de resultado
+    # final.
+    if request.session['jogos_pendentes'] > 0:
+        return render(request, "jogo/jogo.html", locals())
+    return render(request, "jogo/transicao.html", locals())

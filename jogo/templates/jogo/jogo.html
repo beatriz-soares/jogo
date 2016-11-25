@@ -66,8 +66,8 @@
         </div>
     </div>
 <script>
-var qtd = "{{qtd}}";
-nome = "{{nome}}";
+var qtd = "{{request.session.qtd}}";
+var nome = "{{request.session.jogador_da_vez}}";
 
 $(document).ready(function(){
     alert(`${nome}, prepare-se para raciocinar!`);
