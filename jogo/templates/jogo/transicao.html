@@ -13,9 +13,9 @@
     <div class="wrapper">
         <h2>FIM DE JOGO!</h2>
         <hr>
-        <p>Pontuação de {{request.session.nome_jogador1}}: {{request.session.pontuacao_jogador1}}</p>
+        <p class="lead">Pontuação de {{request.session.nome_jogador1}}: {{request.session.pontuacao_jogador1}}</p>
         {% if request.session.nome_jogador2 %}
-        <p>Pontuação de {{request.session.nome_jogador2}}: {{request.session.pontuacao_jogador2}}</p>
+        <p class="lead">Pontuação de {{request.session.nome_jogador2}}: {{request.session.pontuacao_jogador2}}</p>
         {% endif %}
         <br>
         <button type="button" class="btn btn-info btn-lg btn-block picks" data-toggle="modal" data-target="#myModal">
@@ -30,9 +30,3 @@
 </div>
 </body>
 </html>
-<script>
-
-    $(function(){
-        $("#sair" ).click(function(){alert("fim");});
-    });
-</script>

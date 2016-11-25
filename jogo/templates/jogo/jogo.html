@@ -61,14 +61,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title text-center" style="font-size: 200%;">Prepare-se!</h4>
+                <h4 id="titulo_modal" class="modal-title text-center" style="font-size: 200%;"></h4>
             </div>
             <div class="modal-body">
-                <p class="lead text-center">{{request.session.jogador_da_vez}}, é a sua vez de raciocinar!</class>
+                <p id="corpo_texto_modal" class="lead text-center"></p>
                 <br>
                 <br>
                 <button id="comecar_jogo" class="btn btn-danger nivel" name="nivel3">
-					<p class="dificuldade">COMEÇAR</p>
+					<p id="texto_botao_modal" class="dificuldade"></p>
 				</button>
                 <br>
             </div>
@@ -83,11 +83,22 @@ $(document).ready(function(){
     // Isto aqui é para aparecer o modal de recepção ao jogador
     // assim que a tela do jogo for mostrada. Ou seja, a tela de "prepare-se!"
     // É importante que isso venha aqui embaixo!
+    // Em cada utilização desse modal, definimos qual o texto no titulo, no corpo e no botão!
+    $("#titulo_modal").text("Prepare-se!")
+    $("#corpo_texto_modal").text("{{request.session.jogador_da_vez}}, é a sua vez de raciocinar!")
+    $("#texto_botao_modal").text("COMEÇAR")
     $("#mostrar_modal").click()
 })
 $("#comecar_jogo").click(function(){
     // Aqui é para esconder o modal ao apertar no botão de "comecar"
+    // Como o modal é usado para todo tipo de alerta, inclusive o de fim de jogo,
+    // faremos o teste para saber se o jogo acabou. Se for o caso, então redirecionamos
+    // a página.
     $('#myModal').modal('hide');
+    if ($("#texto_botao_modal").text() == "Continuar"){
+        // Continuar é o texto do botão na situação em que o jogo acabou!
+        $(location).attr('href', '/transicao/'+pontos)
+    }
 })
 </script>
 </html>

@@ -65,6 +65,8 @@ window.addEventListener('DOMContentLoaded', function(){
     //criando um evento para mudar a posição do toro quando o botão de id=muda for clicado
     // $("#ativar_modal").click()
     $("#muda").click(function(){
+        // alt
+
         logar_matriz_pos();
         movimentar_toro(0,1);
         movimentar_toro(0,2);
@@ -77,10 +79,17 @@ window.addEventListener('DOMContentLoaded', function(){
         atualizar_coordenadas();
         scene = createScene();
         checar_vitoria();
+
+        // fim
+        // alt
+
         // de = $("#de_field").val() - 1
         // para = $("#para_field").val() - 1
         // if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
-        //     alert(`${nome}, Escolha pinos válidos`);
+        //     $("#titulo_modal").text("Aviso")
+        //     $("#corpo_texto_modal").text(nome+", você tentou realizar jogada inválida!")
+        //     $("#texto_botao_modal").text("Entendi")
+        //     $("#mostrar_modal").click()
         // }
         // else{
         //     jogadas++;
@@ -101,6 +110,8 @@ window.addEventListener('DOMContentLoaded', function(){
         //     $("#jogadas").text(jogadas);
         //     checar_vitoria();
         //  }
+
+        // fim
        });
 
 });
@@ -139,7 +150,10 @@ function movimentar_toro(poste_origem, poste_destino) {
             }
             else if (i==6 && matriz_pos[poste_destino][i] !=0){
                 matriz_pos[poste_origem][linha] = meu_toro;
-                alert(`${nome}, Escolha pinos válidos`);
+                $("#titulo_modal").text("Aviso")
+                $("#corpo_texto_modal").text(nome+", você tentou realizar jogada inválida!")
+                $("#texto_botao_modal").text("Entendi")
+                $("#mostrar_modal").click()
             }
             }}
 }
@@ -186,8 +200,10 @@ function estado_invalido(){
 }
 function checar_vitoria(){
     if (matriz_pos[1][7-qtd]!=0 ||matriz_pos[2][7-qtd]!=0){
-        alert(`Fim de jogo! Pontuação de ${nome}: ${pontos}`);
-        $(location).attr('href', '/transicao/'+pontos)
+        $("#titulo_modal").text("Fim de Jogo!")
+        $("#corpo_texto_modal").text(nome+", sua pontuação foi de "+pontos+"!!!")
+        $("#texto_botao_modal").text("Continuar")
+        $("#mostrar_modal").click()
     }
 }
 
