@@ -78,19 +78,24 @@ window.addEventListener('DOMContentLoaded', function(){
          else{
 
              jogadas++;
-             logar_matriz_pos();
+            //  logar_matriz_pos();
              movimentar_toro(de,para);
-             logar_matriz_pos();
+            //  logar_matriz_pos();
              estado_invalido();
              atualizar_coordenadas();
              scene = createScene();
-             pontos_perdidos = parseInt($('#timer').data('seconds') + jogadas + 2);
+             pontos_perdidos = $('#timer').data('seconds')*peso_tempo + jogadas*peso_jogadas + 0.3;
+             console.log(pontos+'pontos')
+             console.log('Pontos perdidos:')
+             console.log(pontos_perdidos)
+             console.log($('#timer').data('seconds')*peso_tempo+' foram de tempo')
+             console.log(jogadas*peso_jogadas+' foram de jogadas')
              pontos-=pontos_perdidos;
              if (jogadas>minimo){
                  $("#jogadas").css("color", "red");
              }
 
-             $("#pontos").text(pontos)
+             $("#pontos").text(parseInt(pontos))
              $("#jogadas").text(jogadas);
              checar_vitoria();
 
@@ -186,6 +191,7 @@ function checar_vitoria(){
     if (matriz_pos[1][7-qtd]!=0 ||matriz_pos[2][7-qtd]!=0){
         $('#timer').timer('pause');
         tempo_total = $('#timer').data('seconds');
+        pontos = parseInt(pontos);
         $("#titulo_modal").text("Fim de Jogo!")
         $("#corpo_texto_modal").text(nome+", sua pontuação foi de "+pontos+"!!!")
         $("#texto_secundario_modal").text("Seu tempo: "+tempo_total+" segundos")

@@ -44,12 +44,20 @@ def configuracoes_do_modal(request):
         # Detectar a dificuldade do jogo. O padrão é o nível fácil:
         if 'nivel1' in request.POST:
             request.session['qtd'] = 3
+            request.session['peso_tempo'] = 1
+            request.session['peso_jogadas'] = 1
         elif 'nivel2' in request.POST:
             request.session['qtd'] = 5
+            request.session['peso_tempo'] = 0.02
+            request.session['peso_jogadas'] = 0.02
         elif 'nivel3' in request.POST:
             request.session['qtd'] = 7
+            request.session['peso_tempo'] =0.01
+            request.session['peso_jogadas'] = 0.01
         else:
             request.session['qtd'] = 3
+            request.session['peso_tempo'] = 1
+            request.session['peso_jogadas'] = 1
 
         # Detectar o modo de jogo. O tamanho da lista declarada abaixo é
         # a quantidade de nomes a serem perguntados na template.
@@ -109,12 +117,20 @@ def recomecar_jogo(request):
     if request.method == 'POST':
         if 'nivel1' in request.POST:
             request.session['qtd'] = 3
+            request.session['peso_tempo'] = 1
+            request.session['peso_jogadas'] = 1
         elif 'nivel2' in request.POST:
             request.session['qtd'] = 5
+            request.session['peso_tempo'] = 0.002
+            request.session['peso_jogadas'] = 0.002
         elif 'nivel3' in request.POST:
             request.session['qtd'] = 7
+            request.session['peso_tempo'] =0.001
+            request.session['peso_jogadas'] = 0.001
         else:
             request.session['qtd'] = 3
+            request.session['peso_tempo'] = 1
+            request.session['peso_jogadas'] = 1
 
         request.session['jogos_pendentes'] = request.session['numero_jogadores']
 
