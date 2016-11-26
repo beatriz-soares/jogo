@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for torre_de_hanoi project.
 
@@ -23,9 +24,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'l25z-6&x1$2%zngh3%q5-rae3^x^gd7_*ttekf00jtee9gxo3*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Debug para false antes de colocar o site em produção (leia a frase acima)
+DEBUG = False
 
-ALLOWED_HOSTS = []
+# Diz quais são os endereços que podem fazer reuisições ao servidor (* = Qualquer um)
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -120,4 +123,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'torre_de_hanoi/static/')]
+
+# Pasta dos arquivos estáticos que serão servidos pelo whitenoise
+STATIC_ROOT = 'static'
+
+# Especificação da localização doas arquivos estáticos do projeto
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'jogo/static/')]
+
+# Usando o whitenoise para comprimir os arquivos antes de enviar para o browser
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
