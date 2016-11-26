@@ -25,7 +25,7 @@ SECRET_KEY = 'l25z-6&x1$2%zngh3%q5-rae3^x^gd7_*ttekf00jtee9gxo3*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['diblacksmith.pythonanywhere.com']
 
 
 # Application definition
@@ -119,5 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/diblacksmith/projetos/jogo/jogo/static'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'torre_de_hanoi/static/')]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'torre_de_hanoi/static/')]
