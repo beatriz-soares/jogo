@@ -1,13 +1,12 @@
 {% load staticfiles %}
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+    // Declarar variaveis importantes! É importante que isso venha aqui em cima.
+    var qtd = "{{request.session.qtd}}";
+    var nome = "{{request.session.jogador_da_vez}}";
+    </script>
     <title>Torre de Hanói - Jogo</title>
-    <!--- link to the last version of babylon --->
-    <script src="{% static 'js/babylon.js' %}"></script>
     <style>
         html, body {
             overflow: hidden;
@@ -46,9 +45,16 @@
             font-size: 20px;
         }
     </style>
-    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'jogo/css_e_scripts.html' %}
+</head>
+    <script src="{% static 'js/babylon.js' %}"></script>
+    <script src="{% static 'js/timer.js' %}"></script>
 </head>
 <body>
+    <div id="mostrar_modal" data-toggle="modal" data-target="#myModal" style="display:none;"></div>
+
 <div class="row">
     <div class="row col-md-2">
             <input type="text" class="col-md-6" placeholder="De" id="de_field">
@@ -57,17 +63,63 @@
         <div class="alert alert-info col-md-12" id="jog"> Jogadas: <span id="jogadas">0</span> de <span id="minimo"></span></div>
         <div class="alert alert-success col-md-12"> Pontos: <strong id="pontos">1000</strong></div>
         <div class="col-md-12" id="timer"></div>
-        <button class="btn btn-default col-md-12" id="reiniciar">Reiniciar</button>
+        <a class="btn btn-default col-md-12" href="{% url 'index' %}">Voltar ao início</a>
     </div>
     <div class="col-md-10">
     <canvas id="renderCanvas"></canvas>
     </div>
 </div>
-
-<script>
-var qtd = "{{qtd}}";
-</script>
-        <script src="{% static 'js/timer.js' %}"></script>
 <script src="{% static 'js/nivel_2.js' %}"></script>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="titulo_modal" class="modal-title text-center" style="font-size: 200%;"></h4>
+            </div>
+            <div class="modal-body">
+                <p id="corpo_texto_modal" class="lead text-center"></p>
+                <p id="texto_secundario_modal" class="lead text-center"></p>
+                <br>
+                <br>
+                <button id="comecar_jogo" class="btn btn-danger nivel" name="nivel3">
+					<p id="texto_botao_modal" class="dificuldade"></p>
+				</button>
+                <br>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- fim modal -->
 </body>
+<script>
+$(document).ready(function(){
+    // Isto aqui é para aparecer o modal de recepção ao jogador
+    // assim que a tela do jogo for mostrada. Ou seja, a tela de "prepare-se!"
+    // É importante que isso venha aqui embaixo!
+    // Em cada utilização desse modal, definimos qual o texto no titulo, no corpo e no botão!
+    $("#titulo_modal").text("Prepare-se!")
+    $("#corpo_texto_modal").text("{{request.session.jogador_da_vez}}, é a sua vez de raciocinar!")
+    $("#texto_botao_modal").text("COMEÇAR")
+    $("#mostrar_modal").click()
+})
+$("#comecar_jogo").click(function(){
+    // Aqui é para esconder o modal ao apertar no botão de "comecar"
+    // Como o modal é usado para todo tipo de alerta, inclusive o de fim de jogo,
+    // faremos o teste para saber se o jogo acabou. Se for o caso, então redirecionamos
+    // a página.
+    $('#myModal').modal('hide');
+    if ($("#texto_botao_modal").text() == "COMEÇAR"){
+        $('#timer').timer('resume');
+    }
+    if ($("#texto_botao_modal").text() == "Continuar"){
+        // Continuar é o texto do botão na situação em que o jogo acabou!
+        $(location).attr('href', '/transicao/'+pontos)
+    }
+})
+</script>
 </html>

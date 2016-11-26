@@ -4,66 +4,45 @@
 
     <title>Torre de Hanoi</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/menu.css' %}"/>
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'jogo/css_e_scripts.html' %}
+    <style type="text/css">
+        .container-fluid{
+            margin-top: -6%;
+        }
+        .vencedor{
+            color:red;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container-fluid">
     <div class="wrapper">
-        <h2>Sua pontuação: {{pontos}}</h2>
+        <h2>FIM DE JOGO!</h2>
         <hr>
+        <p class="lead">Pontuação de {{request.session.nome_jogador1}}: {{request.session.pontuacao_jogador1}}</p>
+        {% if request.session.nome_jogador2 %}
+        <p class="lead">Pontuação de {{request.session.nome_jogador2}}: {{request.session.pontuacao_jogador2}}</p>
+        {%if request.session.pontuacao_jogador1 > request.session.pontuacao_jogador2%}
+        <p class="lead vencedor">{{request.session.nome_jogador1}} venceu!</p>
+        {%elif request.session.pontuacao_jogador1 < request.session.pontuacao_jogador2%}
+                <p class="lead vencedor">{{request.session.nome_jogador2}} venceu!</p>
+        {%else%}
+        <p class="lead vencedor">Empatou!</p>
+        {% endif %}
+        {% endif %}
         <br>
         <button type="button" class="btn btn-info btn-lg btn-block picks" data-toggle="modal" data-target="#myModal">
          Clique para jogar de novo
         </button>
-        <a href="{% url 'index' %}" class="btn btn-lg btn-warning btn-block picks" type="button">Voltar ao menu</a>
-        <a href="http://google.com" class="btn btn-lg btn-danger btn-block picks" id="sair">SAIR</a>
+        <a href="{% url 'resetar_sessao' %}" class="btn btn-lg btn-warning btn-block picks" type="button">Voltar ao menu</a>
+        <a href="/sair_do_jogo/" class="btn btn-lg btn-danger btn-block picks" id="sair">SAIR</a>
 
-        <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" style="font-size: 200%;">Escolha um nível</h4>
-                    </div>
-                    <div class="modal-body">
-                        <a href="{% url 'jogo' 1 %}" class="btn btn-success nivel">
-                            <p class="dificuldade">Nível 1 - Fácil</p>
-                            <p>(3 pinos)</p>
-                        </a>
-                        <br>
-                        <a href="{% url 'jogo' 2 %}" class="btn btn-warning nivel">
-                            <p class="dificuldade">Nível 2 - Médio</p>
-                            <p>(5 pinos)</p>
-                        </a>
-                        <br>
-                        <a href="{% url 'jogo' 3 %}" class="btn btn-danger nivel">
-                            <p class="dificuldade">Nível 3 - Difícil</p>
-                            <p>(7 pinos)</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        {% include 'jogo/modal_comecar_novo_jogo.html' %}
 
     </div>
 </div>
 </body>
 </html>
-<script>
-
-    $(function(){
-        $("#sair" ).click(function(){alert("fim");});
-    });
-</script>

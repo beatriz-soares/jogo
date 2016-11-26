@@ -39,3 +39,8 @@ clica em jogar */
 .picks{
     height: 10%;
 }
+
+/*Estilo do input de single/multiplayer*/
+.toggle.btn{
+    margin-left: 33%;
+}

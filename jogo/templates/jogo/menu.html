@@ -4,15 +4,8 @@
 
     <title>Torre de Hanoi - Menu</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/menu.css' %}"/>
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'jogo/css_e_scripts.html' %}
 </head>
 <body>
 
@@ -21,51 +14,17 @@
         <img class="form-signin-heading" src="{% static 'images/logo.png' %}"/>
         <hr>
         <br>
+
         <button type="button" class="btn btn-info btn-lg btn-block picks" data-toggle="modal" data-target="#myModal">
             VAMOS
             JOGAR
         </button>
         <a href="{% url 'instrucoes' %}" class="btn btn-lg btn-warning btn-block picks" type="button">INSTRUÇÕES</a>
-        <a href="http://google.com" class="btn btn-lg btn-danger btn-block picks"id="sair" >SAIR</a>
+        <a href="/sair_do_jogo/" class="btn btn-lg btn-danger btn-block picks" id="sair">SAIR</a>
 
-
-        <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" style="font-size: 200%;">Escolha um nível</h4>
-                    </div>
-                    <div class="modal-body">
-                        <a href="{% url 'jogo' 1 %}" class="btn btn-success nivel">
-                            <p class="dificuldade">Nível 1 - Fácil</p>
-                            <p>(3 pinos)</p>
-                        </a>
-                        <br>
-                        <a href="{% url 'jogo' 2 %}" class="btn btn-warning nivel">
-                            <p class="dificuldade">Nível 2 - Médio</p>
-                            <p>(5 pinos)</p>
-                        </a>
-                        <br>
-                        <a href="{% url 'jogo' 3 %}" class="btn btn-danger nivel">
-                            <p class="dificuldade">Nível 3 - Difícil</p>
-                            <p>(7 pinos)</p>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        {% include 'jogo/modal_de_dificuldades.html' %}
 
     </div>
 </div>
 </body>
 </html>
-<script>
-
-    $(function(){
-        $("#sair").click(function(){alert("fim");});
-    });
-</script>

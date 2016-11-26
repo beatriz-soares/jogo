@@ -1,7 +1,6 @@
 //OBSERVAÇÃO: 'torus' é elemento BABYLON, e 'toro' é recipiente de coordenadas xy.
 
 /*SEÇÃO: DECLARAÇÃO DE VARIÁVEIS IMPORTANTES*/
-
 var matriz_pos = [
     /*Matriz de posição dos toros. Cada número diz respeito a um toro.
     Esta matriz está preenchida com zeros e será posteriormente preenchida
@@ -32,6 +31,7 @@ var coordenadas_possiveis = {x:{0:-6,
 var minimo = Math.pow(2,qtd) - 1;
 var jogadas = 0;
 var pontos = 1000;
+pontos_perdidos = 0;
 
 // Coordenadas iniciais dos toros, todos no mesmo poste.
 for (i = 0; i < qtd; i++){
@@ -51,6 +51,7 @@ var engine = new BABYLON.Engine(canvas, true);
 
 /* SEÇÃO: MAIN*/
 $('#timer').timer();
+$('#timer').timer('pause');
 window.addEventListener('DOMContentLoaded', function(){
     // construindo a cena
     var scene = createScene();
@@ -62,33 +63,38 @@ window.addEventListener('DOMContentLoaded', function(){
     });
 
     //criando um evento para mudar a posição do toro quando o botão de id=muda for clicado
+    // $("#ativar_modal").click()
     $("#muda").click(function(){
-        de = $("#de_field").val() - 1
+
+         de = $("#de_field").val() - 1
         para = $("#para_field").val() - 1
-        if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
-            alert("Escolha pinos válidos");
-        }
-        else{
-
-            jogadas++;
-            logar_matriz_pos();
-            movimentar_toro(de,para);
-            logar_matriz_pos();
-            estado_invalido();
-            atualizar_coordenadas();
-            scene = createScene();
-            checar_vitoria();
-
-            if (jogadas>minimo){
-                $("#jogadas").css("color", "red");
-                pontos-=10;
-            }
-            else{
-                pontos-=2;
-            }
-            $("#pontos").text(pontos)
-            $("#jogadas").text(jogadas);
+       if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
+           $("#titulo_modal").text("Aviso")
+           $("#corpo_texto_modal").text(nome+", você não fez uma escolha coerente!")
+           $("#texto_secundario_modal").text("Escolha os pinos de um a três!")
+           $("#texto_botao_modal").text("Entendi")
+           $("#mostrar_modal").click()
          }
+         else{
+
+             jogadas++;
+             logar_matriz_pos();
+             movimentar_toro(de,para);
+             logar_matriz_pos();
+             estado_invalido();
+             atualizar_coordenadas();
+             scene = createScene();
+             pontos_perdidos = parseInt($('#timer').data('seconds') + jogadas + 2);
+             pontos-=pontos_perdidos;
+             if (jogadas>minimo){
+                 $("#jogadas").css("color", "red");
+             }
+
+             $("#pontos").text(pontos)
+             $("#jogadas").text(jogadas);
+             checar_vitoria();
+
+          }
        });
 
 });
@@ -127,7 +133,11 @@ function movimentar_toro(poste_origem, poste_destino) {
             }
             else if (i==6 && matriz_pos[poste_destino][i] !=0){
                 matriz_pos[poste_origem][linha] = meu_toro;
-                alert("Escolha pinos válidos");
+                $("#titulo_modal").text("Aviso")
+                $("#corpo_texto_modal").text(nome+", você tentou realizar jogada inválida!")
+                $("#texto_secundario_modal").text("")
+                $("#texto_botao_modal").text("Entendi")
+                $("#mostrar_modal").click()
             }
             }}
 }
@@ -176,8 +186,11 @@ function checar_vitoria(){
     if (matriz_pos[1][7-qtd]!=0 ||matriz_pos[2][7-qtd]!=0){
         $('#timer').timer('pause');
         tempo_total = $('#timer').data('seconds');
-        alert("Fim de jogo! Pontuação: "+pontos + "Tempo: "+tempo_total);
-        $(location).attr('href', 'http://localhost:8000/transicao/'+pontos)
+        $("#titulo_modal").text("Fim de Jogo!")
+        $("#corpo_texto_modal").text(nome+", sua pontuação foi de "+pontos+"!!!")
+        $("#texto_secundario_modal").text("Seu tempo: "+tempo_total+" segundos")
+        $("#texto_botao_modal").text("Continuar")
+        $("#mostrar_modal").click()
     }
 }
 
