@@ -18,6 +18,4 @@ Tutorial de como fazê-lo em:
 <li>Acessar através do navegador o endereço e porta indicados. Por padrão, o endereço
     será http://127.0.0.1:8000/</li>
 </ol>
-<strong>3º: JOGAR</strong>
-
-<em>Observação: será interessante testar o jogo com acesso à internet, uma vez que existem recursos (fontes) carregadas de serovidores externos.</em>
+<strong>3º: JOGAR!</strong>
