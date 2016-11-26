@@ -69,7 +69,11 @@ window.addEventListener('DOMContentLoaded', function(){
          de = $("#de_field").val() - 1
         para = $("#para_field").val() - 1
        if (de == para || de > 2 || de < 0 || para > 2 || para < 0){
-            alert("Escolha pinos válidos");
+           $("#titulo_modal").text("Aviso")
+           $("#corpo_texto_modal").text(nome+", você não fez uma escolha coerente!")
+           $("#texto_secundario_modal").text("Escolha os pinos de um a três!")
+           $("#texto_botao_modal").text("Entendi")
+           $("#mostrar_modal").click()
          }
          else{
 
@@ -80,7 +84,7 @@ window.addEventListener('DOMContentLoaded', function(){
              estado_invalido();
              atualizar_coordenadas();
              scene = createScene();
-             pontos_perdidos = parseInt($('#timer').data('seconds') * 0.2 + 0.5 * jogadas + 2);
+             pontos_perdidos = parseInt($('#timer').data('seconds') + jogadas + 2);
              pontos-=pontos_perdidos;
              if (jogadas>minimo){
                  $("#jogadas").css("color", "red");
@@ -131,6 +135,7 @@ function movimentar_toro(poste_origem, poste_destino) {
                 matriz_pos[poste_origem][linha] = meu_toro;
                 $("#titulo_modal").text("Aviso")
                 $("#corpo_texto_modal").text(nome+", você tentou realizar jogada inválida!")
+                $("#texto_secundario_modal").text("")
                 $("#texto_botao_modal").text("Entendi")
                 $("#mostrar_modal").click()
             }
