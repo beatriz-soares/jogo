@@ -119,7 +119,8 @@ function movimentar_toro(poste_origem, poste_destino) {
         if (matriz_pos[poste_origem][i] != 0){
             meu_toro = matriz_pos[poste_origem][i];
             linha = i;
-            matriz_pos[poste_origem][i] = 0;
+            // matriz_pos[poste_origem][i] = 0;
+            console.log("toro encontrado");
             break;
         }
         if (i == 6){
@@ -129,15 +130,27 @@ function movimentar_toro(poste_origem, poste_destino) {
     //2º: sua posição final
     if (meu_toro != 0){
         for (i = 0; i < 7; i++){
-            if (matriz_pos[poste_destino][i] != 0 && meu_toro < matriz_pos[poste_destino][i]){
-                matriz_pos[poste_destino][i-1] = meu_toro;
-                break;
+            if (matriz_pos[poste_destino][i] != 0){
+                if (meu_toro < matriz_pos[poste_destino][i]){
+                    matriz_pos[poste_destino][i-1] = meu_toro;
+                    matriz_pos[poste_origem][linha] = 0;
+                    break;
+                }
+                else{
+                    $("#titulo_modal").text("Aviso")
+                    $("#corpo_texto_modal").text(nome+", você tentou realizar jogada inválida!")
+                    $("#texto_secundario_modal").text("")
+                    $("#texto_botao_modal").text("Entendi")
+                    $("#mostrar_modal").click()
+                    break;
+                }
+
             }
             if (i == 6 && matriz_pos[poste_destino][i]==0){
+                matriz_pos[poste_origem][linha] = 0;
                 matriz_pos[poste_destino][i] = meu_toro;
             }
             else if (i==6 && matriz_pos[poste_destino][i] !=0){
-                matriz_pos[poste_origem][linha] = meu_toro;
                 $("#titulo_modal").text("Aviso")
                 $("#corpo_texto_modal").text(nome+", você tentou realizar jogada inválida!")
                 $("#texto_secundario_modal").text("")
